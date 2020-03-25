@@ -2,7 +2,7 @@ import React from 'react';
 
 const Marketplace = () => (
   <section>
-    <h1>Marketplace</h1>
+    <h1 className="Marketplace__Heading">Marketplace</h1>
   </section>
 );
 

@@ -3,7 +3,7 @@ import { BrowserRouter as Router, Switch, Route } from 'react-router-dom';
 import Container from 'react-bootstrap/Container';
 import Row from 'react-bootstrap/Row';
 import Col from 'react-bootstrap/Col';
-import { Home, Map, Marketplace } from './views';
+import { Home, Add, Marketplace } from './views';
 import { Header } from './components';
 
 import 'bootstrap/dist/css/bootstrap.min.css';
@@ -18,13 +18,13 @@ function App() {
           <Col>
             <div>
               <Switch>
-                <Route path="/map">
-                  <Map />
-                </Route>
-                <Route path="/marketplace">
+                <Route exact path="/marketplace">
                   <Marketplace />
                 </Route>
-                <Route path="/">
+                <Route exact path="/add">
+                  <Add />
+                </Route>
+                <Route exact path="/">
                   <Home />
                 </Route>
               </Switch>
