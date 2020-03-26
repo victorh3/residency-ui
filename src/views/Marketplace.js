@@ -1,8 +1,14 @@
 import React from 'react';
+import { getMockData } from '../constants';
+import { Card, CardDeck } from '../components';
 
 const Marketplace = () => (
-  <section>
-    <h1 className="Marketplace__Heading">Marketplace</h1>
+  <section className="Marketplace">
+    <CardDeck>
+      {getMockData.map((residency, index) => (
+        <Card key={`${index}-${residency.programId}`} residency={residency} />
+      ))}
+    </CardDeck>
   </section>
 );
 

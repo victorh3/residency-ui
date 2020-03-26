@@ -13,7 +13,7 @@ function App() {
   return (
     <Router>
       <Header />
-      <Container>
+      <Container className="App">
         <Row>
           <Col>
             <div>
