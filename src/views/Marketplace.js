@@ -1,24 +1,34 @@
-import React from 'react';
+import React, { useState, useEffect } from 'react';
 import axios from 'axios';
-import { getMockData } from '../constants';
-import { Card, CardDeck } from '../components';
+import { Card, CardDeck, Sidebar } from '../components';
 
 const Marketplace = () => {
-  axios({
-    method: 'get',
-    baseURL: 'https://localhost:5003',
-    url: '/categories',
-  })
-    .then((response) => {
-      console.log(response);
-    })
-    .catch((error) => {
-      console.log(error);
-    });
+  const [programs, setPrograms] = useState([]);
+
+  useEffect(() => {
+    let current = true;
+    if (current) {
+      axios({
+        method: 'get',
+        baseURL: 'https://localhost:5002',
+        url: '/programs?type=14',
+      })
+        .then((response) => {
+          console.log(response);
+          setPrograms([...response.data]);
+        })
+        .catch((error) => {
+          console.log(error);
+        });
+      return () => (current = false);
+    }
+  }, []);
+
   return (
     <section className="Marketplace">
+      <Sidebar />
       <CardDeck>
-        {getMockData.map((residency, index) => (
+        {programs.map((residency, index) => (
           <Card key={`${index}-${residency.programId}`} residency={residency} />
         ))}
       </CardDeck>
