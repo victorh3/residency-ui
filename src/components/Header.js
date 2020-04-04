@@ -33,7 +33,7 @@ const Header = () => {
             <Nav.Link
               onClick={() =>
                 loginWithRedirect({
-                  scope: 'read:status',
+                  scope: 'read:status, write:program',
                   audience: 'https://github.com/tguar/ResidencyAPI',
                 })
               }

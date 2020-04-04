@@ -9,12 +9,12 @@ const ExternalApi = () => {
   const callApi = async () => {
     try {
       const token = await getTokenSilently({
-        scope: 'read:status',
+        scope: 'read:status, write:program',
         audience: 'https://github.com/tguar/ResidencyAPI',
       });
 
       //console.log(token);
-      const response = await fetch('https://localhost:5002/categories/status', {
+      const response = await fetch('https://localhost:5002/categories/health', {
         headers: {
           Authorization: `Bearer ${token}`,
         },
