@@ -13,7 +13,8 @@ export const CustomCard = (props) => {
 
   return (
     <Fragment>
-      <Card className="Card" onClick={handleShow}>
+      {/* <Card className="Card" onClick={handleShow}> */}
+      <Card className="Card">
         <Card.Body>
           <Card.Title>{residency.programName}</Card.Title>
           <Card.Text>{residency.programDetail}</Card.Text>
