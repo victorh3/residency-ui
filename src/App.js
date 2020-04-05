@@ -23,9 +23,6 @@ function App() {
           <Route exact path="/marketplace">
             <Marketplace />
           </Route>
-          {/* <Route exact path="/add">
-                  <Add />
-                </Route> */}
           <PrivateRoute path="/add" component={Add} />
           <PrivateRoute path="/external-api" component={ExternalApi} />
           <Route exact path="/">

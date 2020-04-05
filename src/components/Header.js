@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { Fragment } from 'react';
 import Navbar from 'react-bootstrap/Navbar';
 import Nav from 'react-bootstrap/Nav';
 import { Link } from 'react-router-dom';
@@ -18,14 +18,20 @@ const Header = () => {
             Marketplace
           </Nav.Link>
         </Nav.Item>
-        <Nav.Item>
-          <Nav.Link as={Link} to="/add">
-            Add a Residency
-          </Nav.Link>
-          <Nav.Link as={Link} to="/external-api">
-            Categories Status
-          </Nav.Link>
-        </Nav.Item>
+        {isAuthenticated && (
+          <Fragment>
+            <Nav.Item>
+              <Nav.Link as={Link} to="/add">
+                Add a Residency
+              </Nav.Link>
+            </Nav.Item>
+            <Nav.Item>
+              <Nav.Link as={Link} to="/external-api">
+                Categories Status
+              </Nav.Link>
+            </Nav.Item>
+          </Fragment>
+        )}
       </Nav>
       <Nav className="mr-sm-2">
         <Nav.Item className="justify-content-end">
