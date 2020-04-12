@@ -10,7 +10,7 @@ const useResidencyApiGet = (endpoint) => {
     if (current) {
       axios({
         method: 'get',
-        baseURL: 'https://localhost:5002',
+        baseURL: 'https://residency.azurewebsites.net',
         url: endpoint,
       })
         .then((response) => {

@@ -14,11 +14,14 @@ const ExternalApi = () => {
       });
 
       //console.log(token);
-      const response = await fetch('https://localhost:5002/categories/health', {
-        headers: {
-          Authorization: `Bearer ${token}`,
-        },
-      });
+      const response = await fetch(
+        'https://residency.azurewebsites.net/categories/health',
+        {
+          headers: {
+            Authorization: `Bearer ${token}`,
+          },
+        }
+      );
       // const responseData = { result: 'womp' };
       const responseData = await response;
       // console.log(responseData.text());
