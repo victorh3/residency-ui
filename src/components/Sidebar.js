@@ -7,14 +7,8 @@ const Sidebar = (props) => {
   const { types, states } = filters;
 
   const handleOnChange = (e) => {
-    const { name } = e.target;
-    const valArr = new Set([...filters[name]]);
-    if (e.target.checked) {
-      valArr.add(e.target.value);
-    } else {
-      valArr.delete(e.target.value);
-    }
-    setFilters({ ...filters, [name]: [...valArr] });
+    const { name, value } = e.target;
+    setFilters({ ...filters, [name]: [value] });
   };
 
   return (
@@ -29,10 +23,10 @@ const Sidebar = (props) => {
             {categories.map((category) => (
               <Form.Check
                 name="types"
-                checked={types.indexOf(category.categoryId) > -1}
+                checked={types.indexOf(category.categoryId.toString()) > -1}
                 key={`.${category.categoryId}`}
                 value={category.categoryId}
-                type="checkbox"
+                type="radio"
                 id={category.categoryId}
                 label={category.categoryName.toLowerCase()}
                 onChange={handleOnChange}
@@ -47,7 +41,7 @@ const Sidebar = (props) => {
                 checked={states.indexOf(state.abbreviation) > -1}
                 key={`.${state.abbreviation}`}
                 value={state.abbreviation}
-                type="checkbox"
+                type="radio"
                 id={state.abbreviation}
                 label={state.name}
                 onChange={handleOnChange}

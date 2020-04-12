@@ -28,7 +28,7 @@ const useResidencyApiGet = (endpoint) => {
 };
 
 const Marketplace = () => {
-  const [filters, setFilters] = useState({ states: ['AZ'], types: [14] });
+  const [filters, setFilters] = useState({ states: ['AZ'], types: ['14'] });
   const programs = useResidencyApiGet(
     `/programs?type=${filters.types}&state=${filters.states}`
   );
@@ -42,9 +42,30 @@ const Marketplace = () => {
         setFilters={setFilters}
       />
       <CardDeck>
-        {programs.map((residency, index) => (
-          <Card key={`${index}-${residency.programId}`} residency={residency} />
-        ))}
+        {programs.length ? (
+          programs.map((residency, index) => (
+            <Card
+              key={`${index}-${residency.programId}`}
+              residency={residency}
+            />
+          ))
+        ) : (
+          <p>
+            Sorry{' '}
+            <span role="img" aria-label="sad face">
+              😞
+            </span>
+            , no residencies
+            <span role="img" aria-label="hospital">
+              🏥
+            </span>{' '}
+            found matching your search criteria. Try adjusting your filters
+            <span role="img" aria-label="stethoscope and lab coat">
+              🩺🥼
+            </span>
+            .
+          </p>
+        )}
       </CardDeck>
     </section>
   );
