@@ -4,11 +4,21 @@ import { states as statesList } from './states';
 
 const Sidebar = (props) => {
   const { categories, filters, setFilters } = props;
-  const { types, states } = filters;
+  const { type, states } = filters;
 
   const handleOnChange = (e) => {
     const { name, value } = e.target;
-    setFilters({ ...filters, [name]: [value] });
+    if (name === 'states') {
+      const checkedStates = new Set([...states]);
+      if (e.target.checked) {
+        checkedStates.add(value);
+      } else {
+        checkedStates.delete(value);
+      }
+      setFilters({ ...filters, [name]: [...checkedStates] });
+    } else {
+      setFilters({ ...filters, [name]: [value] });
+    }
   };
 
   return (
@@ -20,18 +30,23 @@ const Sidebar = (props) => {
             className="Sidebar__Categories"
           >
             <Form.Label>Program Categories</Form.Label>
-            {categories.map((category) => (
-              <Form.Check
-                name="types"
-                checked={types.indexOf(category.categoryId.toString()) > -1}
-                key={`.${category.categoryId}`}
-                value={category.categoryId}
-                type="radio"
-                id={category.categoryId}
-                label={category.categoryName.toLowerCase()}
-                onChange={handleOnChange}
-              />
-            ))}
+            <Form.Control
+              as="select"
+              name="type"
+              onChange={handleOnChange}
+              value={type[0]}
+            >
+              {categories.map((category) => (
+                <option
+                  name="type"
+                  key={`.${category.categoryId}`}
+                  value={category.categoryId}
+                  id={category.categoryId}
+                >
+                  {category.categoryName.toString().toLowerCase()}
+                </option>
+              ))}
+            </Form.Control>
           </Form.Group>
           <Form.Group controlId="program-states">
             <Form.Label>States</Form.Label>
@@ -41,7 +56,7 @@ const Sidebar = (props) => {
                 checked={states.indexOf(state.abbreviation) > -1}
                 key={`.${state.abbreviation}`}
                 value={state.abbreviation}
-                type="radio"
+                type="checkbox"
                 id={state.abbreviation}
                 label={state.name}
                 onChange={handleOnChange}
