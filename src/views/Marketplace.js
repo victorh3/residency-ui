@@ -5,20 +5,23 @@ import { Card, CardDeck, Sidebar } from '../components';
 const useResidencyApiGet = (endpoint, filters = {}) => {
   const [data, setData] = useState([]);
   const filterKeys = Object.keys(filters);
-  // `/programs?type=${filters.type}&states=${filters.states}&year=${filters.year}`
-  let newEndpoint = `/${endpoint}`;
+  const queryBuilder = [];
+
+  let query = `/${endpoint}`;
   switch (endpoint) {
     case 'programs':
-      newEndpoint += '?';
+      query += '?';
       for (const key of filterKeys) {
-        for (const value of filters[key]) {
-          newEndpoint += `${key}=${value}&`;
-        }
+        const values = filters[key].map((i) => `${key}=${i}`);
+        queryBuilder.push(values.join('&'));
       }
+      query += queryBuilder.join('&');
       break;
     case 'categories':
     default:
   }
+
+  // console.log(query);
 
   useEffect(() => {
     // https://residency.azurewebsites.net/swagger/index.html
@@ -27,7 +30,7 @@ const useResidencyApiGet = (endpoint, filters = {}) => {
       axios({
         method: 'get',
         baseURL: 'https://residency.azurewebsites.net',
-        url: newEndpoint,
+        url: query,
       })
         .then((response) => {
           console.log(response);
@@ -38,7 +41,7 @@ const useResidencyApiGet = (endpoint, filters = {}) => {
         });
       return () => (current = false);
     }
-  }, [newEndpoint]);
+  }, [query]);
 
   return data;
 };
