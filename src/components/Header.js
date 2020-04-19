@@ -1,6 +1,7 @@
 import React, { Fragment } from 'react';
 import Navbar from 'react-bootstrap/Navbar';
 import Nav from 'react-bootstrap/Nav';
+import NavDropdown from 'react-bootstrap/NavDropdown';
 import { Link } from 'react-router-dom';
 import { useAuth0 } from '../react-auth0-spa';
 
@@ -19,18 +20,19 @@ const Header = () => {
           </Nav.Link>
         </Nav.Item>
         {isAuthenticated && (
-          <Fragment>
-            <Nav.Item>
-              <Nav.Link as={Link} to="/add">
-                Add a Residency
-              </Nav.Link>
-            </Nav.Item>
-            <Nav.Item>
-              <Nav.Link as={Link} to="/external-api">
-                Categories Status
-              </Nav.Link>
-            </Nav.Item>
-          </Fragment>
+          <NavDropdown title="Actions" id="basic-nav-dropdown">
+            <NavDropdown.Item href="/addProgram">Add Program</NavDropdown.Item>
+            <NavDropdown.Item href="/editProgram">
+              Edit Program
+            </NavDropdown.Item>
+            <NavDropdown.Divider />
+            <NavDropdown.Item href="/addProgramDetail">
+              Add Program Detail
+            </NavDropdown.Item>
+            <NavDropdown.Item href="/editProgramDetail">
+              Edit Program Detail
+            </NavDropdown.Item>
+          </NavDropdown>
         )}
       </Nav>
       <Nav className="mr-sm-2">
