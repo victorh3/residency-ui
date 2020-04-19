@@ -6,8 +6,8 @@ export const CardDeck = (props) => <div {...props} className="CardDeck" />;
 
 export const CustomCard = (props) => {
   const [showModal, setShowModal] = useState(false);
-  const { residency } = props;
-
+  const { program } = props;
+  console.log(program);
   const handleClose = () => setShowModal(false);
   const handleShow = () => setShowModal(true);
 
@@ -16,18 +16,14 @@ export const CustomCard = (props) => {
       {/* <Card className="Card" onClick={handleShow}> */}
       <Card className="Card">
         <Card.Body>
-          <Card.Title>{residency.programName}</Card.Title>
-          <Card.Text>{residency.programDetail}</Card.Text>
+          <Card.Title>{program.programName}</Card.Title>
+          {/* <Card.Text>{program.programDetail}</Card.Text> */}
         </Card.Body>
         <Card.Footer>
+          <div className="Card__Address">{program.address.addressLineOne}</div>
+          <div className="Card__Address">{program.address.addressLineTwo}</div>
           <div className="Card__Address">
-            {residency.address.addressLineOne}
-          </div>
-          <div className="Card__Address">
-            {residency.address.addressLineTwo}
-          </div>
-          <div className="Card__Address">
-            {`${residency.address.city}, ${residency.address.state} ${residency.address.zipCode} `}
+            {`${program.address.city}, ${program.address.state} ${program.address.zipCode} `}
           </div>
         </Card.Footer>
       </Card>
