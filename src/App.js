@@ -1,6 +1,13 @@
 import React from 'react';
 import { BrowserRouter as Router, Switch, Route } from 'react-router-dom';
-import { Home, Add, Marketplace } from './views';
+import {
+  Home,
+  AddProgram,
+  EditProgram,
+  AddProgramDetail,
+  EditProgramDetail,
+  Marketplace,
+} from './views';
 import { Header } from './components';
 import { useAuth0 } from './react-auth0-spa';
 import PrivateRoute from './components/PrivateRoute';
@@ -23,7 +30,13 @@ function App() {
           <Route exact path="/marketplace">
             <Marketplace />
           </Route>
-          <PrivateRoute path="/add" component={Add} />
+          <PrivateRoute path="/addProgram" component={AddProgram} />
+          <PrivateRoute path="/addProgramDetail" component={AddProgramDetail} />
+          <PrivateRoute path="/editProgram" component={EditProgram} />
+          <PrivateRoute
+            path="/editProgramDetail"
+            component={EditProgramDetail}
+          />
           <PrivateRoute path="/external-api" component={ExternalApi} />
           <Route exact path="/">
             <Home />
