@@ -33,7 +33,6 @@ const useResidencyApiGet = (endpoint, filters = {}) => {
         url: query,
       })
         .then((response) => {
-          console.log(response);
           setData([...response.data]);
         })
         .catch((error) => {
@@ -64,11 +63,8 @@ const Marketplace = () => {
       />
       <CardDeck>
         {programs.length ? (
-          programs.map((residency, index) => (
-            <Card
-              key={`${index}-${residency.programId}`}
-              residency={residency}
-            />
+          programs.map((program, index) => (
+            <Card key={`${index}-${program.programId}`} program={program} />
           ))
         ) : (
           <p>
