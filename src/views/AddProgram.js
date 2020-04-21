@@ -329,12 +329,12 @@ const AddProgram = () => {
                 </Button>
               </Form.Row>
               <hr />
+              <Button variant="secondary" onClick={addContact}>
+                Add Contact
+              </Button>
             </div>
           );
         })}
-        <Button variant="secondary" onClick={addContact}>
-          Add Contact
-        </Button>
 
         <Button variant="primary" type="submit">
           Submit
