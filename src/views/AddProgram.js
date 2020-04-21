@@ -4,15 +4,33 @@ import { Form, Col, Button } from 'react-bootstrap';
 import uuid from 'react-uuid';
 
 const AddProgram = () => {
+  const [indexes, setIndexes] = React.useState([]);
+  const [counter, setCounter] = React.useState(0);
   const { register, handleSubmit } = useForm();
   const onSubmit = (data) => {
-    console.log(data);
+    console.log(JSON.stringify(data));
     alert(JSON.stringify(data));
   };
 
   const programId = uuid();
   const addressId = uuid();
-  const dateTime = new Date().toLocaleString();
+  // const dateTime = new Date().toLocaleString();
+
+  const addContact = () => {
+    setIndexes((prevIndexes) => [...prevIndexes, counter]);
+    setCounter((prevCounter) => prevCounter + 1);
+  };
+
+  const removeContact = (index) => () => {
+    setIndexes((prevIndexes) => [
+      ...prevIndexes.filter((item) => item !== index),
+    ]);
+    setCounter((prevCounter) => prevCounter - 1);
+  };
+
+  if (counter < 1) {
+    addContact();
+  }
 
   return (
     <div className="col-md-8 offset-md-2">
@@ -139,71 +157,188 @@ const AddProgram = () => {
             <Form.Control
               name="address.lastUpdatedDT"
               type="string"
-              value={dateTime}
+              value={new Date().toLocaleString()}
               ref={register}
               readOnly
             />
           </Form.Group>
         </Form.Row>
+
         <hr></hr>
-        {/* <Form.Row>
-          <Form.Group as={Col} controlId="formGridCity">
-            <Form.Label>City</Form.Label>
-            <Form.Control ref={register} />
-          </Form.Group>
 
-          <Form.Group as={Col} controlId="formGridState">
-            <Form.Label>State</Form.Label>
-            <Form.Control as="select" value="Choose..." ref={register}>
-              <option>Choose...</option>
-              <option>...</option>
-            </Form.Control>
-          </Form.Group>
+        {indexes.map((index) => {
+          const fieldName = `contacts[${index}]`;
+          return (
+            <div>
+              <Form.Row>
+                {/* <Form.Group
+                  as={Col}
+                  controlId={`formProgramIdcontacts[${index}]`}
+                >
+                  <Form.Label>ProgramId</Form.Label>
+                  <Form.Control
+                    name={`${fieldName}.programId`}
+                    type="string"
+                    value={programId}
+                    ref={register}
+                    readOnly
+                  />
+                </Form.Group> */}
+                <Form.Group as={Col} controlId={`formContacts${`${index}`}Id`}>
+                  <Form.Label>Contact {`${index}`}</Form.Label>
+                  {/* <Form.Control
+                    name={`${fieldName}.Id`}
+                    type="string"
+                    value={`${fieldName}`}
+                    readOnly
+                  /> */}
+                </Form.Group>
+                <Form.Group
+                  as={Col}
+                  controlId={`formContacts${`${index}`}ContactId`}
+                >
+                  <Form.Label>ContactId</Form.Label>
+                  <Form.Control
+                    name={`${fieldName}.contactId`}
+                    type="string"
+                    value={uuid()}
+                    ref={register}
+                    readOnly
+                  />
+                </Form.Group>
+              </Form.Row>
+              <Form.Row>
+                <Form.Group
+                  as={Col}
+                  controlId={`formContacts${`${index}`}FirstName`}
+                >
+                  <Form.Label>First Name {`${index}`}</Form.Label>
+                  <Form.Control
+                    name={`${fieldName}.firstName`}
+                    placeholder="Tom"
+                    ref={register}
+                    type="string"
+                  />
+                </Form.Group>
+                <Form.Group
+                  as={Col}
+                  controlId={`formContacts${`${index}`}LasttName`}
+                >
+                  <Form.Label>Last Name {`${index}`}</Form.Label>
+                  <Form.Control
+                    name={`${fieldName}.lastName`}
+                    placeholder="Smith"
+                    ref={register}
+                    type="string"
+                  />
+                </Form.Group>
+              </Form.Row>
+              <Form.Row>
+                <Form.Group
+                  as={Col}
+                  controlId={`formContacts${`${index}`}ProgramName`}
+                >
+                  <Form.Label>Program {`${index}`}</Form.Label>
+                  <Form.Control
+                    name={`${fieldName}.programName`}
+                    placeholder="Program Name"
+                    ref={register}
+                    type="string"
+                  />
+                </Form.Group>
+              </Form.Row>
+              <Form.Row>
+                <Form.Group
+                  as={Col}
+                  controlId={`formContacts${`${index}`}Position`}
+                >
+                  <Form.Label>Position {`${index}`}</Form.Label>
+                  <Form.Control
+                    name={`${fieldName}.position`}
+                    placeholder="Lead Coordinator"
+                    ref={register}
+                    type="string"
+                  />
+                </Form.Group>
+                <Form.Group
+                  as={Col}
+                  controlId={`formContacts${`${index}`}Email`}
+                >
+                  <Form.Label>Email {`${index}`}</Form.Label>
+                  <Form.Control
+                    name={`${fieldName}.email`}
+                    placeholder="example@gmail.com"
+                    type="email"
+                    ref={register}
+                  />
+                </Form.Group>
+              </Form.Row>
+              <Form.Row>
+                <Form.Group
+                  as={Col}
+                  controlId={`formContacts${`${index}`}Phone`}
+                >
+                  <Form.Label>Phone {`${index}`}</Form.Label>
+                  <Form.Control
+                    name={`${fieldName}.phone`}
+                    placeholder="111-222-4567"
+                    ref={register}
+                    type="phone"
+                  />
+                </Form.Group>
+                <Form.Group as={Col} controlId={`formContacts${`${index}`}Fax`}>
+                  <Form.Label>Fax {`${index}`}</Form.Label>
+                  <Form.Control
+                    name={`${fieldName}.fax`}
+                    placeholder="999-888-3433"
+                    ref={register}
+                    type="phone"
+                  />
+                </Form.Group>
+              </Form.Row>
 
-          <Form.Group as={Col} controlId="formGridZip">
-            <Form.Label ref={register}>Zip</Form.Label>
-            <Form.Control />
-          </Form.Group>
-        </Form.Row>
-
-        <Form.Group id="formGridCheckbox">
-          <Form.Check type="checkbox" label="Check me out" ref={register} />
-        </Form.Group> */}
+              <Form.Row>
+                <Form.Group
+                  as={Col}
+                  controlId={`formContacts${`${index}`}LastUpdatedBy`}
+                >
+                  {/* <Form.Label>{`${index}`}</Form.Label> */}
+                  <Form.Control
+                    name={`${fieldName}.lastUpdatedBy`}
+                    type="string"
+                    value="Seed"
+                    ref={register}
+                    readOnly
+                  />
+                </Form.Group>
+                <Form.Group
+                  as={Col}
+                  controlId={`formContacts${`${index}`}LastUpdatedDT`}
+                >
+                  {/* <Form.Label>AddressId</Form.Label> */}
+                  <Form.Control
+                    name={`${fieldName}.lastUpdatedDT`}
+                    type="string"
+                    value={new Date().toLocaleString()}
+                    ref={register}
+                    readOnly
+                  />
+                </Form.Group>
+                <Button variant="danger" onClick={removeContact(index)}>
+                  Remove
+                </Button>
+              </Form.Row>
+              <hr />
+            </div>
+          );
+        })}
+        <Button variant="secondary" onClick={addContact}>
+          Add Contact
+        </Button>
 
         <Button variant="primary" type="submit">
           Submit
         </Button>
-        {/* <div>
-          <label htmlFor="firstName">First Name</label>
-          <input name="firstName" placeholder="bill" ref={register} />
-        </div>
-
-        <div>
-          <label htmlFor="lastName">Last Name</label>
-          <input name="lastName" placeholder="luo" ref={register} />
-        </div>
-
-        <div>
-          <label htmlFor="isDeveloper">Is an developer?</label>
-          <input
-            type="checkbox"
-            name="isDeveloper"
-            placeholder="luo"
-            value="yes"
-            ref={register}
-          />
-        </div>
-
-        <div>
-          <label htmlFor="email">Email</label>
-          <input
-            name="email"
-            placeholder="bluebill1049@hotmail.com"
-            type="email"
-            ref={register}
-          />
-        </div>
-        <input type="submit" /> */}
       </Form>
     </div>
   );
