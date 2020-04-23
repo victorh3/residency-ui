@@ -32,6 +32,8 @@ const Header = () => {
             <NavDropdown.Item href="/editProgramDetail">
               Edit Program Detail
             </NavDropdown.Item>
+            <NavDropdown.Divider />
+            <NavDropdown.Item href="/external-api">API status</NavDropdown.Item>
           </NavDropdown>
         )}
       </Nav>
