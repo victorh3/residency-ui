@@ -1,8 +1,43 @@
-import React from 'react';
+import React, { useState, useEffect } from 'react';
 import { useForm } from 'react-hook-form';
 import { Form, Col, Button } from 'react-bootstrap';
 import uuid from 'react-uuid';
 import { states as statesList } from './../components/states';
+import axios from 'axios';
+import { toTitleCase } from './../utils/common';
+
+const useResidencyApiGet = (endpoint, filters = {}) => {
+  const [data, setData] = useState([]);
+
+  let query = `/${endpoint}`;
+  switch (endpoint) {
+    case 'categories':
+    default:
+  }
+
+  // console.log(query);
+
+  useEffect(() => {
+    // https://residency.azurewebsites.net/swagger/index.html
+    let current = true;
+    if (current) {
+      axios({
+        method: 'get',
+        baseURL: 'https://residency.azurewebsites.net',
+        url: query,
+      })
+        .then((response) => {
+          setData([...response.data]);
+        })
+        .catch((error) => {
+          console.log(error);
+        });
+      return () => (current = false);
+    }
+  }, [query]);
+
+  return data;
+};
 
 const AddProgram = () => {
   const [indexes, setIndexes] = React.useState([]);
@@ -33,6 +68,8 @@ const AddProgram = () => {
   if (counter < 1) {
     addContact();
   }
+
+  const categories = useResidencyApiGet('categories');
 
   return (
     <div className="col-md-8 offset-md-2">
@@ -340,6 +377,27 @@ const AddProgram = () => {
             </div>
           );
         })}
+        <hr></hr>
+        <Form.Group as={Col} controlId="formResidencyType">
+          <Form.Label>Program Categories</Form.Label>
+          <Form.Control
+            as="select"
+            name="residencyType"
+            ref={register}
+            value={categories[0]}
+          >
+            {categories.map((category) => (
+              <option
+                name="residencyType"
+                key={`.${category.categoryId}`}
+                value={category.categoryId}
+                id={category.categoryId}
+              >
+                {toTitleCase(category.categoryName.toString())}
+              </option>
+            ))}
+          </Form.Control>
+        </Form.Group>
         <Button variant="secondary" onClick={addContact}>
           Add Contact
         </Button>
