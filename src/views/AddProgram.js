@@ -377,27 +377,31 @@ const AddProgram = () => {
             </div>
           );
         })}
+
+        <Form.Row>
+          <Form.Group as={Col} controlId="formResidencyType">
+            <Form.Label>Program Categories</Form.Label>
+            <Form.Control
+              as="select"
+              name="residencyType"
+              ref={register}
+              value={categories[0]}
+            >
+              {categories.map((category) => (
+                <option
+                  name="residencyType"
+                  key={`.${category.categoryId}`}
+                  value={category.categoryId}
+                  id={category.categoryId}
+                >
+                  {toTitleCase(category.categoryName.toString())}
+                </option>
+              ))}
+            </Form.Control>
+          </Form.Group>
+        </Form.Row>
+
         <hr></hr>
-        <Form.Group as={Col} controlId="formResidencyType">
-          <Form.Label>Program Categories</Form.Label>
-          <Form.Control
-            as="select"
-            name="residencyType"
-            ref={register}
-            value={categories[0]}
-          >
-            {categories.map((category) => (
-              <option
-                name="residencyType"
-                key={`.${category.categoryId}`}
-                value={category.categoryId}
-                id={category.categoryId}
-              >
-                {toTitleCase(category.categoryName.toString())}
-              </option>
-            ))}
-          </Form.Control>
-        </Form.Group>
         <Button variant="secondary" onClick={addContact}>
           Add Contact
         </Button>
