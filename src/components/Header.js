@@ -1,12 +1,12 @@
-import React, { Fragment } from 'react';
+import React from 'react';
 import Navbar from 'react-bootstrap/Navbar';
 import Nav from 'react-bootstrap/Nav';
 import NavDropdown from 'react-bootstrap/NavDropdown';
 import { Link } from 'react-router-dom';
-import { useAuth0 } from '../react-auth0-spa';
+import { useAuth0 } from '../contexts/auth0-context';
 
 const Header = () => {
-  const { isAuthenticated, loginWithRedirect, logout } = useAuth0();
+  const { isLoading, user, loginWithRedirect, logout } = useAuth0();
 
   return (
     <Navbar bg="dark" variant="dark" fixed="top">
@@ -19,7 +19,7 @@ const Header = () => {
             Marketplace
           </Nav.Link>
         </Nav.Item>
-        {isAuthenticated && (
+        {user && (
           <NavDropdown title="Actions" id="basic-nav-dropdown">
             <NavDropdown.Item href="/addProgram">Add Program</NavDropdown.Item>
             <NavDropdown.Item href="/editProgram">
@@ -32,26 +32,21 @@ const Header = () => {
             <NavDropdown.Item href="/editProgramDetail">
               Edit Program Detail
             </NavDropdown.Item>
+            <NavDropdown.Divider />
+            <NavDropdown.Item href="/external-api">API status</NavDropdown.Item>
           </NavDropdown>
         )}
       </Nav>
       <Nav className="mr-sm-2">
         <Nav.Item className="justify-content-end">
-          {!isAuthenticated && (
-            <Nav.Link
-              onClick={() =>
-                loginWithRedirect({
-                  scope: 'read:status, write:program',
-                  audience: 'https://github.com/tguar/ResidencyAPI',
-                })
-              }
-            >
-              Sign in
-            </Nav.Link>
+          {!isLoading && !user && (
+            <Nav.Link onClick={loginWithRedirect}>Sign in</Nav.Link>
           )}
-
-          {isAuthenticated && (
-            <Nav.Link className="justify-content-end" onClick={() => logout()}>
+          {!isLoading && user && (
+            <Nav.Link
+              className="justify-content-end"
+              onClick={() => logout({ returnTo: window.location.origin })}
+            >
               Sign Out
             </Nav.Link>
           )}

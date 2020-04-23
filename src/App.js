@@ -9,19 +9,12 @@ import {
   Marketplace,
 } from './views';
 import { Header } from './components';
-import { useAuth0 } from './react-auth0-spa';
 import PrivateRoute from './components/PrivateRoute';
 import 'bootstrap/dist/css/bootstrap.min.css';
 import './App.scss';
 import ExternalApi from './views/ExternalApi';
 
 function App() {
-  const { loading } = useAuth0();
-
-  if (loading) {
-    return <div>Loading...</div>;
-  }
-
   return (
     <Router>
       <Header />
@@ -30,14 +23,19 @@ function App() {
           <Route exact path="/marketplace">
             <Marketplace />
           </Route>
-          <PrivateRoute path="/addProgram" component={AddProgram} />
-          <PrivateRoute path="/addProgramDetail" component={AddProgramDetail} />
-          <PrivateRoute path="/editProgram" component={EditProgram} />
+          <PrivateRoute exact path="/addProgram" component={AddProgram} />
           <PrivateRoute
+            exact
+            path="/addProgramDetail"
+            component={AddProgramDetail}
+          />
+          <PrivateRoute exact path="/editProgram" component={EditProgram} />
+          <PrivateRoute
+            exact
             path="/editProgramDetail"
             component={EditProgramDetail}
           />
-          <PrivateRoute path="/external-api" component={ExternalApi} />
+          <PrivateRoute exact path="/external-api" component={ExternalApi} />
           <Route exact path="/">
             <Home />
           </Route>

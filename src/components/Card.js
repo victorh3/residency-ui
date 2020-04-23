@@ -9,15 +9,12 @@ export const CustomCard = (props) => {
   const { program } = props;
   console.log(program);
   const handleClose = () => setShowModal(false);
-  const handleShow = () => setShowModal(true);
 
   return (
     <Fragment>
-      {/* <Card className="Card" onClick={handleShow}> */}
       <Card className="Card">
         <Card.Body>
           <Card.Title>{program.programName}</Card.Title>
-          {/* <Card.Text>{program.programDetail}</Card.Text> */}
         </Card.Body>
         <Card.Footer>
           <div className="Card__Address">{program.address.addressLineOne}</div>
