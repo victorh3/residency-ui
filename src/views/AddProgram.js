@@ -2,11 +2,13 @@ import React from 'react';
 import { useForm } from 'react-hook-form';
 import { Form, Col, Button } from 'react-bootstrap';
 import uuid from 'react-uuid';
+import { states as statesList } from './../components/states';
 
 const AddProgram = () => {
   const [indexes, setIndexes] = React.useState([]);
   const [counter, setCounter] = React.useState(0);
   const { register, handleSubmit } = useForm();
+
   const onSubmit = (data) => {
     console.log(JSON.stringify(data));
     alert(JSON.stringify(data));
@@ -104,20 +106,26 @@ const AddProgram = () => {
             <Form.Label>City</Form.Label>
             <Form.Control name="address.city" ref={register} />
           </Form.Group>
-
           <Form.Group as={Col} controlId="formState">
             <Form.Label>State</Form.Label>
             <Form.Control
               as="select"
-              value="AZ"
               name="address.state"
               ref={register}
+              value={statesList[0]}
             >
-              <option>Choose...</option>
-              <option>...</option>
+              {statesList.map((state, index) => (
+                <option
+                  name="address.state"
+                  key={`stateAddressDropdownKey.${index}`}
+                  value={state.abbreviation}
+                  id={`stateAddressDropdown.${index}`}
+                >
+                  {state.name}
+                </option>
+              ))}
             </Form.Control>
           </Form.Group>
-
           <Form.Group as={Col} controlId="formZip">
             <Form.Label>Zip</Form.Label>
             <Form.Control name="address.zipCode" ref={register} />
@@ -329,13 +337,12 @@ const AddProgram = () => {
                 </Button>
               </Form.Row>
               <hr />
-              <Button variant="secondary" onClick={addContact}>
-                Add Contact
-              </Button>
             </div>
           );
         })}
-
+        <Button variant="secondary" onClick={addContact}>
+          Add Contact
+        </Button>
         <Button variant="primary" type="submit">
           Submit
         </Button>
