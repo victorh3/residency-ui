@@ -400,6 +400,79 @@ const AddProgram = () => {
             </Form.Control>
           </Form.Group>
         </Form.Row>
+        <hr></hr>
+        <Form.Row>
+          <Form.Group as={Col} controlId="formProgramDetailId">
+            <Form.Label>ProgramId</Form.Label>
+            <Form.Control
+              name="programDetail.programDetailId"
+              type="string"
+              value={uuid()}
+              ref={register}
+              readOnly
+            />
+          </Form.Group>
+          <Form.Group as={Col} controlId="formProgramIdInProgramDetail">
+            <Form.Label>Program Id</Form.Label>
+            <Form.Control
+              name="programDetail.programId"
+              type="string"
+              value={programId}
+              ref={register}
+              readOnly
+            />
+          </Form.Group>
+        </Form.Row>
+        <Form.Row>
+          <Form.Group as={Col} controlId="formProgramDetailProgramCode">
+            <Form.Label>Program Code</Form.Label>
+            <Form.Control
+              name="programDetail.programCode"
+              type="string"
+              placeholder="Program Code"
+              ref={register}
+            />
+          </Form.Group>
+          <Form.Group as={Col} controlId="formProgramDetailYear">
+            <Form.Label> Year </Form.Label>
+            <Form.Control
+              name="programDetail.year"
+              type="number"
+              placeholder="Program year"
+              ref={register}
+            />
+          </Form.Group>
+        </Form.Row>
+        <Form.Row></Form.Row>
+        <Form.Row></Form.Row>
+        <Form.Row></Form.Row>
+        <Form.Row></Form.Row>
+        <Form.Row></Form.Row>
+        <Form.Row></Form.Row>
+        <Form.Row></Form.Row>
+        <Form.Row></Form.Row>
+        <Form.Row>
+          <Form.Group as={Col} controlId="formLastUpdatedByProgramDetail">
+            {/* <Form.Label>Last</Form.Label> */}
+            <Form.Control
+              name="programDetail.lastUpdatedBy"
+              type="string"
+              value="Seed"
+              ref={register}
+              readOnly
+            />
+          </Form.Group>
+          <Form.Group as={Col} controlId="formLastUpdatedDateProgramDetail">
+            {/* <Form.Label>AddressId</Form.Label> */}
+            <Form.Control
+              name="programDetail.lastUpdatedDT"
+              type="string"
+              value={new Date().toLocaleString()}
+              ref={register}
+              readOnly
+            />
+          </Form.Group>
+        </Form.Row>
 
         <hr></hr>
         <Button variant="secondary" onClick={addContact}>
