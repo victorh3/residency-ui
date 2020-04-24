@@ -7,6 +7,7 @@ import {
   AddProgramDetail,
   EditProgramDetail,
   Marketplace,
+  Map,
 } from './views';
 import { Header } from './components';
 import PrivateRoute from './components/PrivateRoute';
@@ -22,6 +23,9 @@ function App() {
         <Switch>
           <Route exact path="/marketplace">
             <Marketplace />
+          </Route>
+          <Route exact path="/map">
+            <Map />
           </Route>
           <PrivateRoute exact path="/addProgram" component={AddProgram} />
           <PrivateRoute
