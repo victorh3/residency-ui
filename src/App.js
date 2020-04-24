@@ -16,7 +16,7 @@ import ExternalApi from './views/ExternalApi';
 
 function App() {
   return (
-    <Router>
+    <Router basename={process.env.PUBLIC_URL}>
       <Header />
       <div className="App">
         <Switch>
