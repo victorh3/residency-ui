@@ -13,7 +13,7 @@ const ExternalApi = () => {
         audience: 'https://github.com/tguar/ResidencyAPI',
       });
 
-      //console.log(token);
+      console.log(token);
       const response = await fetch(
         'https://residency.azurewebsites.net/categories/health',
         {

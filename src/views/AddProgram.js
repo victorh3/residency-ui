@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import { useForm } from 'react-hook-form';
 import { Form, Col, Button } from 'react-bootstrap';
-import uuid from 'react-uuid';
+import { v4 as uuidv4 } from 'uuid';
 import { states as statesList } from './../components/states';
 import axios from 'axios';
 import { toTitleCase } from './../utils/common';
@@ -41,22 +41,31 @@ const useResidencyApiGet = (endpoint, filters = {}) => {
 };
 
 const AddProgram = () => {
+  const detailsFieldName = `programDetails[0]`;
   const [indexes, setIndexes] = React.useState([]);
   const [counter, setCounter] = React.useState(0);
   const { register, handleSubmit, watch } = useForm();
-  const letterOfRec = watch('programDetail.letterOfRec');
-  const complexLevelOneAccepted = watch('programDetail.comlexLevelOneAccepted');
-  const complexLevelTwoAccepted = watch('programDetail.comlexLevelTwoAccepted');
-  const usmleLevelOneAccepted = watch('programDetail.usmleLevelOneAccepted');
-  const usmleLevelTwoAccepted = watch('programDetail.usmleLevelTwoAccepted');
+  const letterOfRec = watch(`${detailsFieldName}.letterOfRec`);
+  const complexLevelOneAccepted = watch(
+    `${detailsFieldName}.comlexLevelOneAccepted`
+  );
+  const complexLevelTwoAccepted = watch(
+    `${detailsFieldName}.comlexLevelTwoAccepted`
+  );
+  const usmleLevelOneAccepted = watch(
+    `${detailsFieldName}.usmleLevelOneAccepted`
+  );
+  const usmleLevelTwoAccepted = watch(
+    `${detailsFieldName}.usmleLevelTwoAccepted`
+  );
 
   const onSubmit = (data) => {
     console.log(JSON.stringify(data));
     alert(JSON.stringify(data));
   };
 
-  const programId = uuid();
-  const addressId = uuid();
+  const programId = uuidv4();
+  const addressId = uuidv4();
   // const dateTime = new Date().toLocaleString();
 
   const addContact = () => {
@@ -211,6 +220,7 @@ const AddProgram = () => {
         </Form.Row>
 
         <hr></hr>
+        {/* CONTACTS */}
 
         {indexes.map((index) => {
           const fieldName = `contacts[${index}]`;
@@ -247,7 +257,7 @@ const AddProgram = () => {
                   <Form.Control
                     name={`${fieldName}.contactId`}
                     type="string"
-                    value={uuid()}
+                    value={uuidv4()}
                     ref={register}
                     readOnly
                   />
@@ -378,20 +388,20 @@ const AddProgram = () => {
             </div>
           );
         })}
-
+        {/* RESIDENCY TYPE */}
         <Form.Row>
-          <Form.Group as={Col} controlId="formResidencyType">
+          <Form.Group as={Col} controlId="formResidencyTypeId">
             <Form.Label>Program Categories</Form.Label>
             <Form.Control
               as="select"
-              name="residencyType"
+              name="residencyTypeId"
               ref={register}
               //value={categories[0]}
             >
               {categories.map((category, index) => (
                 <option
-                  name="residencyType"
-                  key={`residencyType.${category.categoryId}${index}`}
+                  name="residencyTypeId"
+                  key={`residencyTypeId.${category.categoryId}${index}`}
                   value={category.categoryId}
                   id={category.categoryId}
                 >
@@ -402,13 +412,14 @@ const AddProgram = () => {
           </Form.Group>
         </Form.Row>
         <hr></hr>
+        {/* PROGRAM DETAILS */}
         <Form.Row>
           <Form.Group as={Col} controlId="formProgramDetailId">
             <Form.Label>Program Detail Id</Form.Label>
             <Form.Control
-              name="programDetail.programDetailId"
+              name={`${detailsFieldName}.programDetailId`}
               type="string"
-              value={uuid()}
+              value={uuidv4()}
               ref={register}
               readOnly
             />
@@ -416,7 +427,7 @@ const AddProgram = () => {
           <Form.Group as={Col} controlId="formProgramIdInProgramDetail">
             <Form.Label>Program Id</Form.Label>
             <Form.Control
-              name="programDetail.programId"
+              name={`${detailsFieldName}.programId`}
               type="string"
               value={programId}
               ref={register}
@@ -428,7 +439,7 @@ const AddProgram = () => {
           <Form.Group as={Col} controlId="formProgramDetailUrl">
             <Form.Label>URL</Form.Label>
             <Form.Control
-              name="programDetail.url"
+              name={`${detailsFieldName}.url`}
               type="string"
               placeholder="Url"
               ref={register}
@@ -439,7 +450,7 @@ const AddProgram = () => {
           <Form.Group as={Col} controlId="formProgramDetailProgramCode">
             <Form.Label>Program Code</Form.Label>
             <Form.Control
-              name="programDetail.programCode"
+              name={`${detailsFieldName}.programCode`}
               type="string"
               placeholder="Program Code"
               ref={register}
@@ -448,7 +459,7 @@ const AddProgram = () => {
           <Form.Group as={Col} controlId="formProgramDetailYear">
             <Form.Label> Year </Form.Label>
             <Form.Control
-              name="programDetail.year"
+              name={`${detailsFieldName}.year`}
               type="number"
               placeholder="Program year"
               defaultValue="2021"
@@ -461,12 +472,12 @@ const AddProgram = () => {
             <Form.Label>Letters of Rec</Form.Label>
             <Form.Control
               as="select"
-              name="programDetail.letterOfRec"
+              name={`${detailsFieldName}.letterOfRec`}
               ref={register}
             >
               {formSelect.map((selectOption, index) => (
                 <option
-                  name="programDetail.letterOfRec"
+                  name={`${detailsFieldName}.letterOfRec`}
                   key={`programDetail.letterOfRec.${selectOption.name}${index}`}
                   value={selectOption.value}
                   id={selectOption.name}
@@ -480,7 +491,7 @@ const AddProgram = () => {
           <Form.Group as={Col} controlId="formProgramDetailNumberOfLetterOfRec">
             <Form.Label> Number of Letters </Form.Label>
             <Form.Control
-              name="programDetail.numberOfLetterOfRec"
+              name={`${detailsFieldName}.numberOfLetterOfRec`}
               type="string"
               ref={register}
               defaultValue=""
@@ -492,7 +503,7 @@ const AddProgram = () => {
           <Form.Group as={Col} controlId="formProgramDetailLetterOfRecDetails">
             <Form.Label> Letter of Rec Details </Form.Label>
             <Form.Control
-              name="programDetail.letterOfRecDetails"
+              name={`${detailsFieldName}.letterOfRecDetails`}
               as="textarea"
               rows="2"
               placeholder="Enter details here..."
@@ -509,12 +520,12 @@ const AddProgram = () => {
             <Form.Label>Comlex Level 1 Accepted?</Form.Label>
             <Form.Control
               as="select"
-              name="programDetail.comlexLevelOneAccepted"
+              name={`${detailsFieldName}.comlexLevelOneAccepted`}
               ref={register}
             >
               {formSelect.map((selectOption, index) => (
                 <option
-                  name="programDetail.comlexLevelOneAccepted"
+                  name={`${detailsFieldName}.comlexLevelOneAccepted`}
                   key={`programDetail.comlexLevelOneAccepted.${selectOption.name}${index}`}
                   value={selectOption.value}
                   id={selectOption.name}
@@ -531,7 +542,7 @@ const AddProgram = () => {
           >
             <Form.Label> Comlex 1 Min Score </Form.Label>
             <Form.Control
-              name="programDetail.comlexLevelOneMininumScore"
+              name={`${detailsFieldName}.comlexLevelOneMininumScore`}
               type="string"
               ref={register}
               defaultValue=""
@@ -544,7 +555,7 @@ const AddProgram = () => {
           >
             <Form.Label> Comlex 1 Avg Score </Form.Label>
             <Form.Control
-              name="programDetail.comlexLevelOneAverageScore"
+              name={`${detailsFieldName}.comlexLevelOneAverageScore`}
               type="string"
               ref={register}
               defaultValue=""
@@ -559,7 +570,7 @@ const AddProgram = () => {
           >
             <Form.Label> Comlex Level 1 Comments </Form.Label>
             <Form.Control
-              name="programDetail.comlexLevelOneComments"
+              name={`${detailsFieldName}.comlexLevelOneComments`}
               as="textarea"
               rows="2"
               placeholder="Enter comments here..."
@@ -576,12 +587,12 @@ const AddProgram = () => {
             <Form.Label>Comlex Level 2 Accepted?</Form.Label>
             <Form.Control
               as="select"
-              name="programDetail.comlexLevelTwoAccepted"
+              name={`${detailsFieldName}.comlexLevelTwoAccepted`}
               ref={register}
             >
               {formSelect.map((selectOption, index) => (
                 <option
-                  name="programDetail.comlexLevelTwoAccepted"
+                  name={`${detailsFieldName}.comlexLevelTwoAccepted`}
                   key={`programDetail.comlexLevelTwoAccepted.${selectOption.name}${index}`}
                   value={selectOption.value}
                   id={selectOption.name}
@@ -598,7 +609,7 @@ const AddProgram = () => {
           >
             <Form.Label> Comlex 2 Min Score </Form.Label>
             <Form.Control
-              name="programDetail.comlexLevelTwoMininumScore"
+              name={`${detailsFieldName}.comlexLevelTwoMininumScore`}
               type="string"
               ref={register}
               defaultValue=""
@@ -611,7 +622,7 @@ const AddProgram = () => {
           >
             <Form.Label> Comlex 2 Avg Score </Form.Label>
             <Form.Control
-              name="programDetail.comlexLevelTwoAverageScore"
+              name={`${detailsFieldName}.comlexLevelTwoAverageScore`}
               type="string"
               ref={register}
               defaultValue=""
@@ -626,7 +637,7 @@ const AddProgram = () => {
           >
             <Form.Label> Comlex Level 2 Comments </Form.Label>
             <Form.Control
-              name="programDetail.comlexLevelTwoComments"
+              name={`${detailsFieldName}.comlexLevelTwoComments`}
               as="textarea"
               rows="2"
               placeholder="Enter comments here..."
@@ -644,12 +655,12 @@ const AddProgram = () => {
             <Form.Label>USMLE Level 1 Accepted?</Form.Label>
             <Form.Control
               as="select"
-              name="programDetail.usmleLevelOneAccepted"
+              name={`${detailsFieldName}.usmleLevelOneAccepted`}
               ref={register}
             >
               {formSelect.map((selectOption, index) => (
                 <option
-                  name="programDetail.usmleLevelOneAccepted"
+                  name={`${detailsFieldName}.usmleLevelOneAccepted`}
                   key={`programDetail.usmleLevelOneAccepted.${selectOption.name}${index}`}
                   value={selectOption.value}
                   id={selectOption.name}
@@ -666,7 +677,7 @@ const AddProgram = () => {
           >
             <Form.Label> USMLE 1 Min Score </Form.Label>
             <Form.Control
-              name="programDetail.comlexLevelOneMininumScore"
+              name={`${detailsFieldName}.comlexLevelOneMininumScore`}
               type="string"
               ref={register}
               defaultValue=""
@@ -679,7 +690,7 @@ const AddProgram = () => {
           >
             <Form.Label> USMLE 1 Avg Score </Form.Label>
             <Form.Control
-              name="programDetail.comlexLevelOneAverageScore"
+              name={`${detailsFieldName}.comlexLevelOneAverageScore`}
               type="string"
               ref={register}
               defaultValue=""
@@ -695,7 +706,7 @@ const AddProgram = () => {
           >
             <Form.Label> USMLE Level 1 Comments </Form.Label>
             <Form.Control
-              name="programDetail.usmleLevelOneComments"
+              name={`${detailsFieldName}.usmleLevelOneComments`}
               as="textarea"
               rows="2"
               placeholder="Enter comments here..."
@@ -713,12 +724,12 @@ const AddProgram = () => {
             <Form.Label>USMLE Level 2 Accepted?</Form.Label>
             <Form.Control
               as="select"
-              name="programDetail.usmleLevelTwoAccepted"
+              name={`${detailsFieldName}.usmleLevelTwoAccepted`}
               ref={register}
             >
               {formSelect.map((selectOption, index) => (
                 <option
-                  name="programDetail.usmleLevelTwoAccepted"
+                  name={`${detailsFieldName}.usmleLevelTwoAccepted`}
                   key={`programDetail.usmleLevelTwoAccepted.${selectOption.name}${index}`}
                   value={selectOption.value}
                   id={selectOption.name}
@@ -735,7 +746,7 @@ const AddProgram = () => {
           >
             <Form.Label> USMLE 2 Min Score </Form.Label>
             <Form.Control
-              name="programDetail.usmleLevelTwoMininumScore"
+              name={`${detailsFieldName}.usmleLevelTwoMininumScore`}
               type="string"
               ref={register}
               defaultValue=""
@@ -748,7 +759,7 @@ const AddProgram = () => {
           >
             <Form.Label> USMLE 2 Avg Score </Form.Label>
             <Form.Control
-              name="programDetail.usmleLevelTwoAverageScore"
+              name={`${detailsFieldName}.usmleLevelTwoAverageScore`}
               type="string"
               ref={register}
               defaultValue=""
@@ -764,7 +775,7 @@ const AddProgram = () => {
           >
             <Form.Label> USMLE Level 2 Comments </Form.Label>
             <Form.Control
-              name="programDetail.usmleLevelTwoComments"
+              name={`${detailsFieldName}.usmleLevelTwoComments`}
               as="textarea"
               rows="2"
               placeholder="Enter comments here..."
@@ -777,10 +788,14 @@ const AddProgram = () => {
         <Form.Row>
           <Form.Group as={Col} controlId="formProgramDetailPhoto">
             <Form.Label>Photo?</Form.Label>
-            <Form.Control as="select" name="programDetail.photo" ref={register}>
+            <Form.Control
+              as="select"
+              name={`${detailsFieldName}.photo`}
+              ref={register}
+            >
               {formSelect.map((selectOption, index) => (
                 <option
-                  name="programDetail.photo"
+                  name={`${detailsFieldName}.photo`}
                   key={`programDetail.photo.${selectOption.name}${index}`}
                   value={selectOption.value}
                   id={selectOption.name}
@@ -792,10 +807,14 @@ const AddProgram = () => {
           </Form.Group>
           <Form.Group as={Col} controlId="formProgramDetailCV">
             <Form.Label>CV?</Form.Label>
-            <Form.Control as="select" name="programDetail.cv" ref={register}>
+            <Form.Control
+              as="select"
+              name={`${detailsFieldName}.cv`}
+              ref={register}
+            >
               {formSelect.map((selectOption, index) => (
                 <option
-                  name="programDetail.cv"
+                  name={`${detailsFieldName}.cv`}
                   key={`programDetail.cv.${selectOption.name}${index}`}
                   value={selectOption.value}
                   id={selectOption.name}
@@ -811,12 +830,12 @@ const AddProgram = () => {
             <Form.Label>Dean's Letter?</Form.Label>
             <Form.Control
               as="select"
-              name="programDetail.deansLetter"
+              name={`${detailsFieldName}.deansLetter`}
               ref={register}
             >
               {formSelect.map((selectOption, index) => (
                 <option
-                  name="programDetail.deansLetter"
+                  name={`${detailsFieldName}.deansLetter`}
                   key={`programDetail.deansLetter.${selectOption.name}${index}`}
                   value={selectOption.value}
                   id={selectOption.name}
@@ -833,7 +852,7 @@ const AddProgram = () => {
           >
             <Form.Label>Dean's Letter Comments</Form.Label>
             <Form.Control
-              name="programDetail.deansLetterComments"
+              name={`${detailsFieldName}.deansLetterComments`}
               type="string"
               placeholder="Dean's Letter comments"
               ref={register}
@@ -845,12 +864,12 @@ const AddProgram = () => {
             <Form.Label>Transcript?</Form.Label>
             <Form.Control
               as="select"
-              name="programDetail.transcript"
+              name={`${detailsFieldName}.transcript`}
               ref={register}
             >
               {formSelect.map((selectOption, index) => (
                 <option
-                  name="programDetail.transcript"
+                  name={`${detailsFieldName}.transcript`}
                   key={`programDetail.transcript.${selectOption.name}${index}`}
                   value={selectOption.value}
                   id={selectOption.name}
@@ -867,7 +886,7 @@ const AddProgram = () => {
           >
             <Form.Label>Transcript Comments</Form.Label>
             <Form.Control
-              name="programDetail.transcriptComments"
+              name={`${detailsFieldName}.transcriptComments`}
               type="string"
               placeholder="Transcript comments"
               ref={register}
@@ -883,12 +902,12 @@ const AddProgram = () => {
             <Form.Label>Personal Statement?</Form.Label>
             <Form.Control
               as="select"
-              name="programDetail.personalStatement"
+              name={`${detailsFieldName}.personalStatement`}
               ref={register}
             >
               {formSelect.map((selectOption, index) => (
                 <option
-                  name="programDetail.personalStatement"
+                  name={`${detailsFieldName}.personalStatement`}
                   key={`programDetail.personalStatement.${selectOption.name}${index}`}
                   value={selectOption.value}
                   id={selectOption.name}
@@ -905,7 +924,7 @@ const AddProgram = () => {
           >
             <Form.Label>Personal Statement Comments</Form.Label>
             <Form.Control
-              name="programDetail.personalStatementComments"
+              name={`${detailsFieldName}.personalStatementComments`}
               type="string"
               placeholder="Personal Statement comments"
               ref={register}
@@ -917,12 +936,12 @@ const AddProgram = () => {
             <Form.Label>Research?</Form.Label>
             <Form.Control
               as="select"
-              name="programDetail.research"
+              name={`${detailsFieldName}.research`}
               ref={register}
             >
               {formSelect.map((selectOption, index) => (
                 <option
-                  name="programDetail.research"
+                  name={`${detailsFieldName}.research`}
                   key={`programDetail.research.${selectOption.name}${index}`}
                   value={selectOption.value}
                   id={selectOption.name}
@@ -939,7 +958,7 @@ const AddProgram = () => {
           >
             <Form.Label>Research Comments</Form.Label>
             <Form.Control
-              name="programDetail.researchComments"
+              name={`${detailsFieldName}.researchComments`}
               type="string"
               placeholder="Research comments"
               ref={register}
@@ -952,12 +971,12 @@ const AddProgram = () => {
             <Form.Label>Audition Rotation?</Form.Label>
             <Form.Control
               as="select"
-              name="programDetail.auditionRotation"
+              name={`${detailsFieldName}.auditionRotation`}
               ref={register}
             >
               {formSelect.map((selectOption, index) => (
                 <option
-                  name="programDetail.auditionRotation"
+                  name={`${detailsFieldName}.auditionRotation`}
                   key={`programDetail.auditionRotation.${selectOption.name}${index}`}
                   value={selectOption.value}
                   id={selectOption.name}
@@ -974,7 +993,7 @@ const AddProgram = () => {
           >
             <Form.Label>Audition Rotation Comments</Form.Label>
             <Form.Control
-              name="programDetail.auditionRotationComments"
+              name={`${detailsFieldName}.auditionRotationComments`}
               type="string"
               placeholder="Audition Rotation comments"
               ref={register}
@@ -987,12 +1006,12 @@ const AddProgram = () => {
             <Form.Label>DO Friendly?</Form.Label>
             <Form.Control
               as="select"
-              name="programDetail.doFriendly"
+              name={`${detailsFieldName}.doFriendly`}
               ref={register}
             >
               {formSelect.map((selectOption, index) => (
                 <option
-                  name="programDetail.doFriendly"
+                  name={`${detailsFieldName}.doFriendly`}
                   key={`programDetail.doFriendly.${selectOption.name}${index}`}
                   value={selectOption.value}
                   id={selectOption.name}
@@ -1009,7 +1028,7 @@ const AddProgram = () => {
           >
             <Form.Label>DO Friendly Comments</Form.Label>
             <Form.Control
-              name="programDetail.doFriendlyComments"
+              name={`${detailsFieldName}.doFriendlyComments`}
               type="string"
               placeholder="DO Friendly comments"
               ref={register}
@@ -1021,12 +1040,12 @@ const AddProgram = () => {
             <Form.Label>IMS Friendly?</Form.Label>
             <Form.Control
               as="select"
-              name="programDetail.imsFriendly"
+              name={`${detailsFieldName}.imsFriendly`}
               ref={register}
             >
               {formSelect.map((selectOption, index) => (
                 <option
-                  name="programDetail.imsFriendly"
+                  name={`${detailsFieldName}.imsFriendly`}
                   key={`programDetail.imsFriendly.${selectOption.name}${index}`}
                   value={selectOption.value}
                   id={selectOption.name}
@@ -1043,7 +1062,7 @@ const AddProgram = () => {
           >
             <Form.Label>IMS Friendly Comments</Form.Label>
             <Form.Control
-              name="programDetail.imsFriendlyComments"
+              name={`${detailsFieldName}.imsFriendlyComments`}
               type="string"
               placeholder="IMS Friendly comments"
               ref={register}
@@ -1056,12 +1075,12 @@ const AddProgram = () => {
             <Form.Label>ERAS Application?</Form.Label>
             <Form.Control
               as="select"
-              name="programDetail.erasApplication"
+              name={`${detailsFieldName}.erasApplication`}
               ref={register}
             >
               {formSelect.map((selectOption, index) => (
                 <option
-                  name="programDetail.erasApplication"
+                  name={`${detailsFieldName}.erasApplication`}
                   key={`programDetail.erasApplication.${selectOption.name}${index}`}
                   value={selectOption.value}
                   id={selectOption.name}
@@ -1078,7 +1097,7 @@ const AddProgram = () => {
           >
             <Form.Label>ERAS Application Comments</Form.Label>
             <Form.Control
-              name="programDetail.erasApplicationComments"
+              name={`${detailsFieldName}.erasApplicationComments`}
               type="string"
               placeholder="ERAS Application comments"
               ref={register}
@@ -1090,9 +1109,9 @@ const AddProgram = () => {
           <Form.Group as={Col} controlId="formProgramDetailERASApplicationDate">
             <Form.Label>Application Date Deadline</Form.Label>
             <Form.Control
-              name="programDetail.erasApplicationDate"
+              name={`${detailsFieldName}.erasApplicationDate`}
               type="string"
-              value="1/1/2020"
+              placeholder="1/1/2020"
               ref={register}
             />
           </Form.Group>
@@ -1102,7 +1121,7 @@ const AddProgram = () => {
           >
             <Form.Label> Number of Apps Accepted </Form.Label>
             <Form.Control
-              name="programDetail.numberOfApplicationsAccepted"
+              name={`${detailsFieldName}.numberOfApplicationsAccepted`}
               type="number"
               placeholder="20"
               defaultValue=""
@@ -1115,7 +1134,7 @@ const AddProgram = () => {
           <Form.Group as={Col} controlId="formProgramDetailOtherCommentsOne">
             <Form.Label> Other Comments 1</Form.Label>
             <Form.Control
-              name="programDetail.otherCommentsOne"
+              name={`${detailsFieldName}.otherCommentsOne`}
               as="textarea"
               rows="2"
               placeholder="Enter comments here..."
@@ -1129,7 +1148,7 @@ const AddProgram = () => {
           <Form.Group as={Col} controlId="formProgramDetailOtherCommentsTwo">
             <Form.Label> Other Comments 2</Form.Label>
             <Form.Control
-              name="programDetail.otherCommentsTwo"
+              name={`${detailsFieldName}.otherCommentsTwo`}
               as="textarea"
               rows="2"
               placeholder="Enter comments here..."
@@ -1143,7 +1162,7 @@ const AddProgram = () => {
           <Form.Group as={Col} controlId="formProgramDetailOtherCommentsThree">
             <Form.Label> Other Comments 3</Form.Label>
             <Form.Control
-              name="programDetail.otherCommentsThree"
+              name={`${detailsFieldName}.otherCommentsThree`}
               as="textarea"
               rows="2"
               placeholder="Enter comments here..."
@@ -1157,7 +1176,7 @@ const AddProgram = () => {
           <Form.Group as={Col} controlId="formProgramDetailOtherCommentsFour">
             <Form.Label> Other Comments 4</Form.Label>
             <Form.Control
-              name="programDetail.otherCommentsFour"
+              name={`${detailsFieldName}.otherCommentsFour`}
               as="textarea"
               rows="2"
               placeholder="Enter comments here..."
@@ -1171,7 +1190,7 @@ const AddProgram = () => {
           <Form.Group as={Col} controlId="formProgramDetailOtherCommentsFive">
             <Form.Label> Other Comments 5</Form.Label>
             <Form.Control
-              name="programDetail.otherCommentsFive"
+              name={`${detailsFieldName}.otherCommentsFive`}
               as="textarea"
               rows="2"
               placeholder="Enter comments here..."
@@ -1185,7 +1204,7 @@ const AddProgram = () => {
           <Form.Group as={Col} controlId="formLastUpdatedByProgramDetail">
             {/* <Form.Label>Last</Form.Label> */}
             <Form.Control
-              name="programDetail.lastUpdatedBy"
+              name={`${detailsFieldName}.lastUpdatedBy`}
               type="string"
               value="Seed"
               ref={register}
@@ -1195,7 +1214,7 @@ const AddProgram = () => {
           <Form.Group as={Col} controlId="formLastUpdatedDateProgramDetail">
             {/* <Form.Label>AddressId</Form.Label> */}
             <Form.Control
-              name="programDetail.lastUpdatedDT"
+              name={`${detailsFieldName}.lastUpdatedDT`}
               type="string"
               value={new Date().toLocaleString()}
               ref={register}
