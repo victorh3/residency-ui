@@ -31,7 +31,6 @@
   padding: 1rem;
   display: flex;
   flex-wrap: wrap;
-  padding-left: 15rem;
 }
 
 .Card__Address {
@@ -40,7 +39,8 @@
   font-weight: 400;
 }
 
-.Marketplace {
+.Main {
+  padding-left: 15rem;
 }
 
 .Sidebar {
@@ -59,4 +59,9 @@
 
 .Sidebar__Categories {
   text-transform: capitalize;
+}
+
+.leaflet-container {
+  width: 100%;
+  height: 100vh;
 }

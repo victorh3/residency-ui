@@ -6,7 +6,9 @@ import {
   EditProgram,
   AddProgramDetail,
   EditProgramDetail,
+  Main,
   Marketplace,
+  Map,
 } from './views';
 import { Header } from './components';
 import PrivateRoute from './components/PrivateRoute';
@@ -21,7 +23,14 @@ function App() {
       <div className="App">
         <Switch>
           <Route exact path="/marketplace">
-            <Marketplace />
+            <Main>
+              <Marketplace />
+            </Main>
+          </Route>
+          <Route exact path="/map">
+            <Main>
+              <Map />
+            </Main>
           </Route>
           <PrivateRoute exact path="/addProgram" component={AddProgram} />
           <PrivateRoute

@@ -2,9 +2,10 @@ import React from 'react';
 import { Form } from 'react-bootstrap';
 import { states as statesList } from './states';
 import { toTitleCase } from './../utils/common';
+import { usePrograms } from '../contexts';
 
-const Sidebar = (props) => {
-  const { categories, filters, setFilters } = props;
+const Sidebar = () => {
+  const { filters, setFilters, categories } = usePrograms();
   const { type, states } = filters;
 
   const handleOnChange = (e) => {
