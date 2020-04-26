@@ -6,6 +6,7 @@ import {
   EditProgram,
   AddProgramDetail,
   EditProgramDetail,
+  Main,
   Marketplace,
   Map,
 } from './views';
@@ -22,10 +23,14 @@ function App() {
       <div className="App">
         <Switch>
           <Route exact path="/marketplace">
-            <Marketplace />
+            <Main>
+              <Marketplace />
+            </Main>
           </Route>
           <Route exact path="/map">
-            <Map />
+            <Main>
+              <Map />
+            </Main>
           </Route>
           <PrivateRoute exact path="/addProgram" component={AddProgram} />
           <PrivateRoute

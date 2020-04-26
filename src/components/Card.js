@@ -1,13 +1,10 @@
-import React, { useState, Fragment } from 'react';
+import React, { Fragment } from 'react';
 import Card from 'react-bootstrap/Card';
-import Modal from 'react-bootstrap/Modal';
 
 export const CardDeck = (props) => <div {...props} className="CardDeck" />;
 
 export const CustomCard = (props) => {
-  const [showModal, setShowModal] = useState(false);
   const { program } = props;
-  const handleClose = () => setShowModal(false);
 
   return (
     <Fragment>
@@ -23,23 +20,6 @@ export const CustomCard = (props) => {
           </div>
         </Card.Footer>
       </Card>
-      <Modal
-        show={showModal}
-        onHide={handleClose}
-        size="lg"
-        aria-labelledby="modal-residency-map-location"
-        centered
-      >
-        <Modal.Header closeButton>
-          <Modal.Title id="modal-residency-map-location">
-            Modal heading
-          </Modal.Title>
-        </Modal.Header>
-        <Modal.Body>
-          <h4>Map</h4>
-          <p>A cute little map goes here.</p>
-        </Modal.Body>
-      </Modal>
     </Fragment>
   );
 };

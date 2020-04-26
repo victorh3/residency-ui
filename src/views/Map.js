@@ -1,71 +1,51 @@
 import React from 'react';
 import { Map, Marker, Popup, TileLayer } from 'react-leaflet';
-
-const parkData = {
-  features: [
-    {
-      type: 'Feature',
-      properties: {
-        PARK_ID: 960,
-        NAME: 'Bearbrook Skateboard Park',
-        DESCRIPTIO: 'Flat asphalt surface, 5 components',
-      },
-      geometry: {
-        type: 'Point',
-        coordinates: [-75.3372987731628, 45.383321536272049],
-      },
-    },
-    {
-      type: 'Feature',
-      properties: {
-        PARK_ID: 1219,
-        NAME: 'Bob MacQuarrie Skateboard Park (SK8 Extreme Park)',
-        DESCRIPTIO:
-          'Flat asphalt surface, 10 components, City run learn to skateboard programs, City run skateboard camps in summer',
-      },
-      geometry: {
-        type: 'Point',
-        coordinates: [-75.546518086577947, 45.467134581917357],
-      },
-    },
-  ],
-};
+import { usePrograms } from '../contexts';
 
 const MapView = () => {
-  const [activePark, setActivePark] = React.useState(null);
+  const { programs } = usePrograms();
+  const [selectedProgram, setSelectedProgram] = React.useState(null);
+  let defaultZoom = 4;
+  let defaultCenter = [39.82, -98.57];
+
+  if (programs.length) {
+    defaultCenter = [
+      programs[0].address.latitude,
+      programs[0].address.longitude,
+    ];
+    defaultZoom = 8;
+  }
 
   return (
-    <Map center={[45.4, -75.7]} zoom={12}>
+    <Map center={defaultCenter} zoom={defaultZoom}>
       <TileLayer
         url="https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png"
         attribution='&copy; <a href="http://osm.org/copyright">OpenStreetMap</a> contributors'
       />
-      {parkData.features.map((park) => (
+      {programs.map((program) => (
         <Marker
-          key={park.properties.PARK_ID}
-          position={[
-            park.geometry.coordinates[1],
-            park.geometry.coordinates[0],
-          ]}
+          key={program.programId}
+          position={[program.address.latitude, program.address.longitude]}
           onClick={() => {
-            setActivePark(park);
+            setSelectedProgram(program);
           }}
         />
       ))}
-      {activePark && (
+      {selectedProgram && (
         <Popup
           position={[
-            activePark.geometry.coordinates[1],
-            activePark.geometry.coordinates[0],
+            selectedProgram.address.latitude,
+            selectedProgram.address.longitude,
           ]}
           onClose={() => {
-            setActivePark(null);
+            setSelectedProgram(null);
           }}
         >
-          <div>
-            <h2>{activePark.properties.NAME}</h2>
-            <p>{activePark.properties.DESCRIPTIO}</p>
-          </div>
+          {/* <Card key={selectedProgram.programId} program={selectedProgram} /> */}
+          <h2>{selectedProgram.programName}</h2>
+          <div>{selectedProgram.addressLineOne}</div>
+          <div>{selectedProgram.address.addressLineTwo}</div>
+          <div>{`${selectedProgram.address.city}, ${selectedProgram.address.state} ${selectedProgram.address.zipCode} `}</div>
         </Popup>
       )}
     </Map>
