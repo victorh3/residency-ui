@@ -1,6 +1,7 @@
 import React from 'react';
 import { Form } from 'react-bootstrap';
 import { states as statesList } from './states';
+import { toTitleCase } from './../utils/common';
 
 const Sidebar = (props) => {
   const { categories, filters, setFilters } = props;
@@ -43,7 +44,7 @@ const Sidebar = (props) => {
                   value={category.categoryId}
                   id={category.categoryId}
                 >
-                  {category.categoryName.toString().toLowerCase()}
+                  {toTitleCase(category.categoryName.toString())}
                 </option>
               ))}
             </Form.Control>
