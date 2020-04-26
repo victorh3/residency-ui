@@ -7,7 +7,6 @@ export const CardDeck = (props) => <div {...props} className="CardDeck" />;
 export const CustomCard = (props) => {
   const [showModal, setShowModal] = useState(false);
   const { program } = props;
-  console.log(program);
   const handleClose = () => setShowModal(false);
 
   return (

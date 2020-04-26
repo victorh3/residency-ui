@@ -3,7 +3,7 @@ import Navbar from 'react-bootstrap/Navbar';
 import Nav from 'react-bootstrap/Nav';
 import NavDropdown from 'react-bootstrap/NavDropdown';
 import { Link } from 'react-router-dom';
-import { useAuth0 } from '../contexts/auth0-context';
+import { useAuth0 } from '../contexts';
 
 const Header = () => {
   const { isLoading, user, loginWithRedirect, logout } = useAuth0();
