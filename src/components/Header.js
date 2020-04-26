@@ -19,6 +19,11 @@ const Header = () => {
             Marketplace
           </Nav.Link>
         </Nav.Item>
+        <Nav.Item>
+          <Nav.Link as={Link} to="/map">
+            Map
+          </Nav.Link>
+        </Nav.Item>
         {user && (
           <NavDropdown title="Actions" id="basic-nav-dropdown">
             <NavDropdown.Item as={Link} to="/addProgram">
