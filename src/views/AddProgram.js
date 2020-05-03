@@ -6,6 +6,7 @@ import { states as statesList } from './../components/states';
 import axios from 'axios';
 import { toTitleCase } from './../utils/common';
 import { formSelect } from './../components/formSelect';
+import { useAuth0 } from '../contexts/auth0-context';
 
 const useResidencyApiGet = (endpoint, filters = {}) => {
   const [data, setData] = useState([]);
@@ -44,6 +45,8 @@ const AddProgram = () => {
   const detailsFieldName = `programDetails[0]`;
   const [indexes, setIndexes] = React.useState([]);
   const [counter, setCounter] = React.useState(0);
+  const [apiMessage, setApiMessage] = useState('');
+  const { getTokenSilently } = useAuth0();
   const { register, handleSubmit, watch } = useForm();
   const letterOfRec = watch(`${detailsFieldName}.letterOfRec`);
   const complexLevelOneAccepted = watch(
@@ -59,10 +62,10 @@ const AddProgram = () => {
     `${detailsFieldName}.usmleLevelTwoAccepted`
   );
 
-  const onSubmit = (data) => {
-    console.log(JSON.stringify(data));
-    alert(JSON.stringify(data));
-  };
+  // const onSubmit = (data) => {
+  //   console.log(JSON.stringify(data));
+  //   alert(JSON.stringify(data));
+  // };
 
   const programId = uuidv4();
   const addressId = uuidv4();
@@ -85,6 +88,38 @@ const AddProgram = () => {
   }
 
   const categories = useResidencyApiGet('categories');
+
+  //const onSubmit = (data) => {
+  const onSubmit = async (data) => {
+    //try {
+    const token = await getTokenSilently({
+      scope: 'read:status, write:program',
+      audience: 'https://github.com/tguar/ResidencyAPI',
+    });
+
+    console.log(token);
+    console.log(JSON.stringify(data));
+    //   const response = axios.post(
+    //     'https://residency.azurewebsites.net/programs/',
+    //     {
+    //       headers: {
+    //         Authorization: `Bearer ${token}`,
+    //       },
+    //       'Content-Type': 'application/json',
+    //       data: data,
+    //     }
+    //   );
+    //   // const responseData = { result: 'womp' };
+    //   const responseData = await response;
+    //   // console.log(responseData.text());
+    //   //setShowResult(true);
+    //   console.log(responseData.statusText);
+    //   //let a = responseData.statusText;
+    //   //setApiMessage(a);
+    // } catch (error) {
+    //   console.error(error);
+    // }
+  };
 
   return (
     <div className="col-md-8 offset-md-2">
