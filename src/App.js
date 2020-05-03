@@ -1,5 +1,5 @@
 import React from 'react';
-import { BrowserRouter as Router, Switch, Route } from 'react-router-dom';
+import { HashRouter as Router, Switch, Route } from 'react-router-dom';
 import {
   Home,
   AddProgram,
@@ -18,7 +18,7 @@ import ExternalApi from './views/ExternalApi';
 
 function App() {
   return (
-    <Router basename={process.env.PUBLIC_URL}>
+    <Router>
       <Header />
       <div className="App">
         <Switch>
