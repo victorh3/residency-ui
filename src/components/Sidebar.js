@@ -70,7 +70,7 @@ const Sidebar = () => {
               value="all"
               type="checkbox"
               id="all"
-              label="Select All"
+              label="All States"
               onChange={handleSelectAlOnChange}
             />
             {statesList.map((state) => (
