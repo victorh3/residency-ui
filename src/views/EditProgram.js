@@ -15,7 +15,6 @@ const EditProgram = (props) => {
   };
 
   useEffect(() => {
-    // https://residency.azurewebsites.net/swagger/index.html
     let current = true;
     if (current) {
       axios({
@@ -25,13 +24,14 @@ const EditProgram = (props) => {
       })
         .then((response) => {
           setData({ ...response.data });
+          reset({ ...response.data });
         })
         .catch((error) => {
           console.log(error);
         });
       return () => (current = false);
     }
-  }, []);
+  }, [reset]);
 
   // useEffect(() => {
   //   const reset = () => {
