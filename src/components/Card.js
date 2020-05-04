@@ -1,10 +1,13 @@
 import React, { useState, Fragment } from 'react';
 import Card from 'react-bootstrap/Card';
+import Button from 'react-bootstrap/Button';
 import Modal from 'react-bootstrap/Modal';
+import { useAuth0 } from '../contexts/auth0-context';
 
 export const CardDeck = (props) => <div {...props} className="CardDeck" />;
 
 export const CustomCard = (props) => {
+  const { user } = useAuth0();
   const [showModal, setShowModal] = useState(false);
   const { program } = props;
   console.log(program);
@@ -22,6 +25,13 @@ export const CustomCard = (props) => {
           <div className="Card__Address">
             {`${program.address.city}, ${program.address.state} ${program.address.zipCode} `}
           </div>
+          {user &&
+            (console.log(program.programId),
+            (
+              <Button href={`/EditProgram/${program.programId}`}>
+                <p>Edit Program {program.programId}</p>
+              </Button>
+            ))}
         </Card.Footer>
       </Card>
       <Modal
