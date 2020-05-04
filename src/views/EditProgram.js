@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import axios from 'axios';
-import { useForm, handleSubmit, watch, reset } from 'react-hook-form';
+import { useForm } from 'react-hook-form';
 import { Form, Col, Button } from 'react-bootstrap';
 
 const EditProgram = (props) => {
@@ -19,8 +19,7 @@ const EditProgram = (props) => {
     if (current) {
       axios({
         method: 'get',
-        baseURL:
-          'https://residency.azurewebsites.net/programs/881c96e6-b66c-401b-8c35-9347d6204d47',
+        baseURL: `https://residency.azurewebsites.net/programs/${programId}`,
       })
         .then((response) => {
           setData({ ...response.data });
@@ -31,7 +30,7 @@ const EditProgram = (props) => {
         });
       return () => (current = false);
     }
-  }, [reset]);
+  }, [programId, reset]);
 
   // useEffect(() => {
   //   const reset = () => {
@@ -69,6 +68,9 @@ const EditProgram = (props) => {
             />
           </Form.Group>
         </Form.Row>
+        <Button variant="primary" type="submit">
+          Submit
+        </Button>
       </Form>
       {/* ) : (
         <p>Not found</p>
