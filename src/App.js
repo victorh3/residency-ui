@@ -10,7 +10,7 @@ import {
   Marketplace,
   Map,
 } from './views';
-import { Header } from './components';
+import { Header, Loader } from './components';
 import PrivateRoute from './components/PrivateRoute';
 import 'bootstrap/dist/css/bootstrap.min.css';
 import './App.scss';
@@ -50,6 +50,7 @@ function App() {
           </Route>
         </Switch>
       </div>
+      <Loader />
     </Router>
   );
 }

@@ -7,7 +7,7 @@ import { usePrograms } from '../contexts';
 const Sidebar = () => {
   const { filters, setFilters, categories } = usePrograms();
   const { type, states } = filters;
-  const [lastFilters, setLastFilters] = useState([]);
+  const [lastFilters, setLastFilters] = useState(['AZ']);
 
   const handleOnChange = (e) => {
     const { name, value } = e.target;
