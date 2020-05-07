@@ -3,23 +3,6 @@ import axios from 'axios';
 
 const API_ENDPOINT_URL = 'https://residency.azurewebsites.net';
 
-const callToAPI = (query, setFunction) => {
-  let current = true;
-  if (current) {
-    axios({
-      method: 'get',
-      baseURL: API_ENDPOINT_URL,
-      url: query,
-    })
-      .then((response) => {
-        setFunction([...response.data]);
-      })
-      .catch((error) => {
-        console.log(error);
-      });
-    return () => (current = false);
-  }
-};
 export const ProgramsContext = createContext();
 
 export const usePrograms = () => useContext(ProgramsContext);
@@ -33,13 +16,36 @@ export const ProgramsProvider = (props) => {
     year: [2021],
   });
   const [categories, setCategories] = useState([]);
+  const [isLoading, setIsLoading] = useState(false);
+
+  const callToAPI = (query, setFunction) => {
+    let current = true;
+    if (current) {
+      axios({
+        method: 'get',
+        baseURL: API_ENDPOINT_URL,
+        url: query,
+      })
+        .then((response) => {
+          setFunction([...response.data]);
+          setIsLoading(false);
+        })
+        .catch((error) => {
+          console.log(error);
+          setIsLoading(false);
+        });
+      return () => (current = false);
+    }
+  };
 
   useEffect(() => {
+    setIsLoading(true);
     let query = '/categories';
     callToAPI(query, setCategories);
   }, []);
 
   useEffect(() => {
+    setIsLoading(true);
     let query = '/programs?';
     const filterKeys = Object.keys(filters);
     const queryBuilder = [];
@@ -62,6 +68,8 @@ export const ProgramsProvider = (props) => {
         setFilters,
         categories,
         setCategories,
+        isLoading,
+        setIsLoading,
       }}
     >
       {children}
