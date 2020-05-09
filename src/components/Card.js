@@ -3,6 +3,7 @@ import Card from 'react-bootstrap/Card';
 import Button from 'react-bootstrap/Button';
 import Modal from 'react-bootstrap/Modal';
 import { useAuth0 } from '../contexts/auth0-context';
+import { Link } from 'react-router-dom';
 
 export const CardDeck = (props) => <div {...props} className="CardDeck" />;
 
@@ -27,9 +28,9 @@ export const CustomCard = (props) => {
           {user &&
             (console.log(program.programId),
             (
-              <Button href={`/EditProgram/${program.programId}`}>
-                <p>Edit Program {program.programId}</p>
-              </Button>
+              <Link to={`/editProgram/${program.programId}`}>
+                <Button>Edit Program {program.programId}</Button>
+              </Link>
             ))}
         </Card.Footer>
       </Card>
