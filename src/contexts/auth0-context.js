@@ -46,7 +46,8 @@ export class Auth0Provider extends Component {
     const user = await this.state.auth0Client.getUser();
 
     this.setState({ user, isAuthenticated: true, isLoading: false });
-    window.history.replaceState({}, document.title, window.location.pathname);
+    // window.history.replaceState({}, document.title, window.location.pathname);
+    window.history.replaceState({}, document.title, process.env.PUBLIC_URL);
   };
 
   render() {

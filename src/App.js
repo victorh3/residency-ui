@@ -1,27 +1,38 @@
 import React from 'react';
-import { BrowserRouter as Router, Switch, Route } from 'react-router-dom';
+import { HashRouter as Router, Switch, Route } from 'react-router-dom';
 import {
   Home,
   AddProgram,
   EditProgram,
   AddProgramDetail,
   EditProgramDetail,
+  Main,
   Marketplace,
+  Map,
 } from './views';
-import { Header } from './components';
+import { Header, Loader } from './components';
 import PrivateRoute from './components/PrivateRoute';
 import 'bootstrap/dist/css/bootstrap.min.css';
 import './App.scss';
 import ExternalApi from './views/ExternalApi';
+import { usePrograms } from './contexts/programs-context';
 
 function App() {
+  const { isLoading } = usePrograms();
   return (
     <Router>
       <Header />
       <div className="App">
         <Switch>
           <Route exact path="/marketplace">
-            <Marketplace />
+            <Main>
+              <Marketplace />
+            </Main>
+          </Route>
+          <Route exact path="/map">
+            <Main>
+              <Map />
+            </Main>
           </Route>
           <PrivateRoute exact path="/addProgram" component={AddProgram} />
           <PrivateRoute
@@ -45,6 +56,7 @@ function App() {
           </Route>
         </Switch>
       </div>
+      {isLoading && <Loader />}
     </Router>
   );
 }
