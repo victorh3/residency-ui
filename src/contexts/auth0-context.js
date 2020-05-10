@@ -15,10 +15,11 @@ export class Auth0Provider extends Component {
     isAuthenticated: false,
     user: null,
   };
+
   config = {
     domain: process.env.REACT_APP_AUTH0_DOMAIN,
     client_id: process.env.REACT_APP_AUTH0_CLIENT_ID,
-    redirect_uri: window.location.origin,
+    redirect_uri: process.env.REACT_APP_REDIRECT_URL,
   };
 
   componentDidMount() {
