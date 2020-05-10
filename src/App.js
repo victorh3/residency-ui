@@ -40,7 +40,11 @@ function App() {
             path="/addProgramDetail"
             component={AddProgramDetail}
           />
-          <PrivateRoute exact path="/editProgram" component={EditProgram} />
+          <PrivateRoute
+            exact
+            path={'/editProgram/:programId'}
+            component={EditProgram}
+          ></PrivateRoute>
           <PrivateRoute
             exact
             path="/editProgramDetail"

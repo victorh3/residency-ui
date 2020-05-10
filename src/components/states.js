@@ -199,4 +199,8 @@ export const states = [
     name: 'Wyoming',
     abbreviation: 'WY',
   },
+  {
+    name: 'Washington, D.C.',
+    abbreviation: 'DC',
+  },
 ];
