@@ -4,6 +4,7 @@ import { useForm } from 'react-hook-form';
 import { Form, Col, Button } from 'react-bootstrap';
 import { states as statesList } from './../components/states';
 import { toTitleCase } from './../utils/common';
+import { useAuth0 } from '../contexts/auth0-context';
 
 const EditProgram = (props) => {
   const { programId } = props.match.params;
@@ -13,10 +14,42 @@ const EditProgram = (props) => {
   const [categories, setCategories] = useState([]);
   const [counter, setCounter] = useState(0);
   const [isLoading, setIsLoading] = useState(true);
+  const { getTokenSilently } = useAuth0();
 
-  const onSubmit = (data) => {
+  const onSubmit = async (data) => {
+    try {
+      const token = await getTokenSilently({
+        scope: 'read:status, write:program',
+        audience: 'https://github.com/tguar/ResidencyAPI',
+      });
+
+      console.log(token);
+      let config = {
+        headers: {
+          Authorization: 'Bearer ' + token,
+        },
+      };
+      axios
+        .put(
+          `https://residency.azurewebsites.net/programs/${data.programId}`,
+          config
+        )
+        .then((r) => console.log(r.status))
+        .catch((e) => console.log(e));
+      // const responseData = { result: 'womp' };
+      // const responseData = await response;
+      // console.log(responseData.text());
+    } catch (error) {
+      console.error(error);
+    }
     console.log(JSON.stringify(data));
-    // alert(JSON.stringify(data));
+    // axios({
+    //   method: 'put',
+    //   url: 'https://residency.azurewebsites.net/programs/',
+    //   data: data,
+    // });
+
+    alert('sent');
   };
 
   const addContact = () => {
