@@ -24,16 +24,13 @@ const EditProgram = (props) => {
       });
 
       console.log(token);
-      let config = {
-        headers: {
-          Authorization: 'Bearer ' + token,
-        },
-      };
+
       axios
-        .put(
-          `https://residency.azurewebsites.net/programs/${data.programId}`,
-          config
-        )
+        .put(`https://residency.azurewebsites.net/programs/${data.programId}`, {
+          headers: {
+            Authorization: `Bearer ${token}`,
+          },
+        })
         .then((r) => console.log(r.status))
         .catch((e) => console.log(e));
       // const responseData = { result: 'womp' };
