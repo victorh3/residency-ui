@@ -30,6 +30,7 @@ const EditProgram = (props) => {
           headers: {
             Authorization: `Bearer ${token}`,
           },
+          data: data,
         })
         .then((r) => console.log(r.status))
         .catch((e) => console.log(e));
