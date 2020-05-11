@@ -26,14 +26,18 @@ const EditProgram = (props) => {
       console.log(token);
 
       axios
-        .put(`https://residency.azurewebsites.net/programs/${data.programId}`, {
-          headers: {
-            Authorization: `Bearer ${token}`,
-            crossDomain: true,
-            withCredentials: true,
-          },
-          data: data,
-        })
+        .put(
+          `https://residency.azurewebsites.net/programs/${data.programId}`,
+          data,
+          {
+            headers: {
+              Authorization: `Bearer ${token}`,
+              crossDomain: true,
+              withCredentials: true,
+              'Content-Type': 'application/json',
+            },
+          }
+        )
         .then((r) => console.log(r.status))
         .catch((e) => console.log(e));
       // const responseData = { result: 'womp' };
