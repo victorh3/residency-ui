@@ -29,6 +29,8 @@ const EditProgram = (props) => {
         .put(`https://residency.azurewebsites.net/programs/${data.programId}`, {
           headers: {
             Authorization: `Bearer ${token}`,
+            crossDomain: true,
+            withCredentials: true,
           },
           data: data,
         })
