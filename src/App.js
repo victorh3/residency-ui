@@ -10,15 +10,13 @@ import {
   Marketplace,
   Map,
 } from './views';
-import { Header, Loader } from './components';
+import { Header } from './components';
 import PrivateRoute from './components/PrivateRoute';
 import 'bootstrap/dist/css/bootstrap.min.css';
 import './App.scss';
 import ExternalApi from './views/ExternalApi';
-import { usePrograms } from './contexts/programs-context';
 
 function App() {
-  const { isLoading } = usePrograms();
   return (
     <Router>
       <Header />
@@ -56,7 +54,6 @@ function App() {
           </Route>
         </Switch>
       </div>
-      {isLoading && <Loader />}
     </Router>
   );
 }
