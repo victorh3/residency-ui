@@ -2,6 +2,7 @@ import React, { Fragment, useState } from 'react';
 import Card from 'react-bootstrap/Card';
 import Button from 'react-bootstrap/Button';
 import Modal from 'react-bootstrap/Modal';
+import InputGroup from 'react-bootstrap/InputGroup';
 import { useAuth0 } from '../contexts/auth0-context';
 import { Link } from 'react-router-dom';
 
@@ -25,13 +26,18 @@ export const CustomCard = (props) => {
           <div className="Card__Address">
             {`${program.address.city}, ${program.address.state} ${program.address.zipCode} `}
           </div>
-          {user &&
-            (console.log(program.programId),
-            (
+          {user && (
+            <InputGroup size="sm" className="mb-3">
               <Link to={`/editProgram/${program.programId}`}>
-                <Button>Edit Program {program.programId}</Button>
+                <Button>Edit Program </Button>
               </Link>
-            ))}
+              <Link
+                to={`/editProgramDetail/${program.programDetail.programDetailId}`}
+              >
+                <Button variant="secondary">Edit Program Detail</Button>
+              </Link>
+            </InputGroup>
+          )}
         </Card.Footer>
       </Card>
       <Modal
