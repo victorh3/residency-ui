@@ -47,7 +47,7 @@ function App() {
           ></PrivateRoute>
           <PrivateRoute
             exact
-            path="/editProgramDetail"
+            path={'/editProgramDetail/:programDetailId'}
             component={EditProgramDetail}
           />
           <PrivateRoute exact path="/external-api" component={ExternalApi} />
