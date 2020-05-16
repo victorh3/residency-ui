@@ -7,6 +7,8 @@ const CardBodyDetails = (props) => {
 
   programDetailKeys = programDetailKeys.filter((i) => {
     if (i.toLowerCase().includes('othercomments')) return false;
+    if (i.toLowerCase().includes('programdetailid')) return false;
+    if (i.toLowerCase().includes('programid')) return false;
     return programDetail[i];
   });
 
