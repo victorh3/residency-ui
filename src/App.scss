@@ -68,10 +68,20 @@
 }
 
 .Card__BodyDetail {
-  padding: 0 .125rem .5rem;
+  padding: 0 0 .5rem 0;
   flex: 0 0 50%;
   display: flex;
   justify-content: space-between;
+  box-sizing: border-box;
+
+  &:nth-child(odd) {
+    border-right: .25rem solid grey;
+    padding-right: .5rem;
+  }
+
+  &:nth-child(even) {
+    padding-left: .5rem;
+  }
 }
 
 .CardHeader__date {
