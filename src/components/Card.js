@@ -3,8 +3,14 @@ import Card from 'react-bootstrap/Card';
 import Button from 'react-bootstrap/Button';
 import Modal from 'react-bootstrap/Modal';
 import InputGroup from 'react-bootstrap/InputGroup';
+import Container from 'react-bootstrap/Container';
+import Row from 'react-bootstrap/Row';
+import Col from 'react-bootstrap/Col';
 import { useAuth0 } from '../contexts/auth0-context';
 import { Link } from 'react-router-dom';
+import Tooltip from './Tooltip';
+import CardBodyDetails from './CardBodyDetails';
+import CardFooterComments from './CardFooterComments';
 
 export const CardDeck = (props) => <div {...props} className="CardDeck" />;
 
@@ -14,18 +20,66 @@ export const CustomCard = (props) => {
   const { program } = props;
   const handleClose = () => setShowModal(false);
 
+  console.log(program);
   return (
     <Fragment>
       <Card className="Card">
+        <Card.Header>
+          <Container fluid>
+            <Row className="CardHeader__title">
+              <Col xs={10}>
+                <Card.Title className="CardHeader__titleText">
+                  {program.programName}
+                </Card.Title>
+              </Col>
+              <Col xs={2} className="Card--alignRight">
+                <Tooltip letter="k" />
+              </Col>
+            </Row>
+            <Row className="CardHeader__date">
+              <Col xs={10}>
+                {`Appy by: ${new Date(
+                  program.programDetail.erasApplicationDate
+                ).toDateString()}`}
+              </Col>
+              <Col xs={2} className="Card--alignRight">
+                <Tooltip letter="c" data={program.contacts} />
+              </Col>
+            </Row>
+            <Row className="CardHeader__url">
+              <Col xs={10} className="Card--alignLeft">
+                <a
+                  href={`http://${program.programDetail.url}`}
+                  target="_blank"
+                  rel="noopener noreferrer"
+                >
+                  {' '}
+                  Website
+                </a>
+              </Col>
+              <Col xs={2} className="Card--alignRight">
+                <Tooltip letter="a" data={program.address} />
+              </Col>
+            </Row>
+          </Container>
+        </Card.Header>
         <Card.Body>
-          <Card.Title>{program.programName}</Card.Title>
+          <Container fluid>
+            <Row>
+              <Col>
+                <CardBodyDetails programDetail={program.programDetail} />
+              </Col>
+            </Row>
+          </Container>
         </Card.Body>
         <Card.Footer>
-          <div className="Card__Address">{program.address.addressLineOne}</div>
-          <div className="Card__Address">{program.address.addressLineTwo}</div>
-          <div className="Card__Address">
-            {`${program.address.city}, ${program.address.state} ${program.address.zipCode} `}
-          </div>
+          <Container fluid>
+            <Row>
+              <Col>
+                <CardFooterComments programDetail={program.programDetail} />
+              </Col>
+            </Row>
+          </Container>
           {user && (
             <InputGroup size="sm" className="mb-3">
               <Link to={`/editProgram/${program.programId}`}>
