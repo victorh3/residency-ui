@@ -5,7 +5,7 @@ import Button from 'react-bootstrap/Button';
 
 const Key = () => {
   return (
-    <p>
+    <div>
       <div>
         <span role="img" aria-label="checkmark emoji">
           ✅{' '}
@@ -22,9 +22,9 @@ const Key = () => {
         <span>N/Av</span> Not Available
       </div>
       <div>
-        <span>N/AP</span> Not Applicable
+        <span>N/Ap</span> Not Applicable
       </div>
-    </p>
+    </div>
   );
 };
 
@@ -37,18 +37,18 @@ const Address = (props) => {
     zipCode,
   } = props.address;
   return (
-    <p>
+    <div>
       <div contact>{addressLineOne}</div>
       <div contact>{addressLineTwo}</div>
       <div contact>{`${city}, ${state} ${zipCode}`}</div>
-    </p>
+    </div>
   );
 };
 
 const Contact = (props) => {
   const { firstName, lastName, position, email, phone } = props.contact[0];
   return (
-    <p>
+    <div>
       {firstName} {lastName}
       <br />
       {position}
@@ -56,7 +56,7 @@ const Contact = (props) => {
       {email}
       <br />
       {phone}
-    </p>
+    </div>
   );
 };
 
@@ -73,7 +73,7 @@ const renderTooltipContent = (letter, data = null) => {
 };
 
 const MyTooltip = (props) => {
-  const placement = 'right';
+  const placement = 'left';
   const { letter, data } = props;
   return (
     <OverlayTrigger

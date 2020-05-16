@@ -9,6 +9,8 @@ import Col from 'react-bootstrap/Col';
 import { useAuth0 } from '../contexts/auth0-context';
 import { Link } from 'react-router-dom';
 import Tooltip from './Tooltip';
+import CardBodyDetails from './CardBodyDetails';
+import CardFooterComments from './CardFooterComments';
 
 export const CardDeck = (props) => <div {...props} className="CardDeck" />;
 
@@ -17,8 +19,6 @@ export const CustomCard = (props) => {
   const [showModal, setShowModal] = useState(false);
   const { program } = props;
   const handleClose = () => setShowModal(false);
-
-  console.log(program);
 
   return (
     <Fragment>
@@ -29,10 +29,18 @@ export const CustomCard = (props) => {
               <Col xs={10}>
                 <Card.Title>{program.programName}</Card.Title>
               </Col>
-              <Col xs={2}>
+              <Col xs={2} className="Card--alignRight">
                 <Tooltip letter="k" />
                 <Tooltip letter="c" data={program.contacts} />
                 <Tooltip letter="a" data={program.address} />
+              </Col>
+            </Row>
+            <Row className="CardHeader__date">
+              <Col xs={6}>Apply By:</Col>
+              <Col xs={6} className="Card--alignRight">
+                {new Date(
+                  program.programDetail.erasApplicationDate
+                ).toDateString()}
               </Col>
             </Row>
           </Container>
@@ -40,17 +48,20 @@ export const CustomCard = (props) => {
         <Card.Body>
           <Container fluid>
             <Row>
-              <Col>1 of 2</Col>
-              <Col>2 of 2</Col>
+              <Col>
+                <CardBodyDetails programDetail={program.programDetail} />
+              </Col>
             </Row>
           </Container>
         </Card.Body>
         <Card.Footer>
-          <div className="Card__Address">{program.address.addressLineOne}</div>
-          <div className="Card__Address">{program.address.addressLineTwo}</div>
-          <div className="Card__Address">
-            {`${program.address.city}, ${program.address.state} ${program.address.zipCode} `}
-          </div>
+          <Container fluid>
+            <Row>
+              <Col>
+                <CardFooterComments programDetail={program.programDetail} />
+              </Col>
+            </Row>
+          </Container>
           {user && (
             <InputGroup size="sm" className="mb-3">
               <Link to={`/editProgram/${program.programId}`}>
