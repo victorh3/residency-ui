@@ -20,7 +20,6 @@ export const CustomCard = (props) => {
   const { program } = props;
   const handleClose = () => setShowModal(false);
 
-  console.log(program);
   return (
     <Fragment>
       <Card className="Card">
