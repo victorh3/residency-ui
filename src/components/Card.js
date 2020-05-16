@@ -20,27 +20,45 @@ export const CustomCard = (props) => {
   const { program } = props;
   const handleClose = () => setShowModal(false);
 
+  console.log(program);
   return (
     <Fragment>
       <Card className="Card">
         <Card.Header>
           <Container fluid>
-            <Row>
+            <Row className="CardHeader__title">
               <Col xs={10}>
-                <Card.Title>{program.programName}</Card.Title>
+                <Card.Title className="CardHeader__titleText">
+                  {program.programName}
+                </Card.Title>
               </Col>
               <Col xs={2} className="Card--alignRight">
                 <Tooltip letter="k" />
-                <Tooltip letter="c" data={program.contacts} />
-                <Tooltip letter="a" data={program.address} />
               </Col>
             </Row>
             <Row className="CardHeader__date">
-              <Col xs={6}>Apply By:</Col>
-              <Col xs={6} className="Card--alignRight">
-                {new Date(
+              <Col xs={10}>
+                {`Appy by: ${new Date(
                   program.programDetail.erasApplicationDate
-                ).toDateString()}
+                ).toDateString()}`}
+              </Col>
+              <Col xs={2} className="Card--alignRight">
+                <Tooltip letter="c" data={program.contacts} />
+              </Col>
+            </Row>
+            <Row className="CardHeader__url">
+              <Col xs={10} className="Card--alignLeft">
+                <a
+                  href={`http://${program.programDetail.url}`}
+                  target="_blank"
+                  rel="noopener noreferrer"
+                >
+                  {' '}
+                  Website
+                </a>
+              </Col>
+              <Col xs={2} className="Card--alignRight">
+                <Tooltip letter="a" data={program.address} />
               </Col>
             </Row>
           </Container>
