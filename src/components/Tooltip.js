@@ -8,7 +8,7 @@ const Key = () => {
     <div>
       <div>
         <span role="img" aria-label="checkmark emoji">
-          ✅{' '}
+          ✔️{' '}
         </span>
         Yes
       </div>
