@@ -31,6 +31,11 @@ const CardBodyDetails = (props) => {
           {data}
         </a>
       );
+    if (
+      key.toLowerCase().includes('date') &&
+      !key.toLowerCase().includes('lastupdatedby')
+    )
+      return new Date(data).toDateString();
     return data;
   };
 
