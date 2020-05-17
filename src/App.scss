@@ -15,9 +15,9 @@
   box-shadow: 0 1px 3px rgba(0, 0, 0, 0.12), 0 1px 2px rgba(0, 0, 0, 0.24);
   transition: all 0.3s cubic-bezier(.25, .8, .25, 1);
   flex: 0 0 28rem;
-  margin-right: 1rem;
-  margin-bottom: 1rem;
-  margin-left: 1rem;
+
+
+
 
   &:hover {
     box-shadow: 0 14px 28px rgba(0, 0, 0, 0.25), 0 10px 10px rgba(0, 0, 0, 0.22);
@@ -39,6 +39,12 @@
     padding-left: 0;
     padding-right: 0;
   }
+}
+
+.Marketplace-card {
+  margin-right: 1rem;
+  margin-bottom: 1rem;
+  margin-left: 1rem;
 }
 
 .CardDeck {
@@ -164,4 +170,12 @@
 .tooltip-inner {
   max-width: 300px;
   text-align: left;
+}
+
+.Map-ShowModal--button {
+  padding: 0 0 0 0;
+}
+
+.Map-ModalCard {
+  margin: 0 !important;
 }

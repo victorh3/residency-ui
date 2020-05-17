@@ -9,7 +9,11 @@ const Marketplace = () => {
     <CardDeck>
       {programs.length ? (
         programs.map((program, index) => (
-          <Card key={`${index}-${program.programId}`} program={program} />
+          <Card
+            key={`${index}-${program.programId}`}
+            program={program}
+            marketplace={true}
+          />
         ))
       ) : (
         <p>

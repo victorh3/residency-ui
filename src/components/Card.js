@@ -11,18 +11,19 @@ import { Link } from 'react-router-dom';
 import Tooltip from './Tooltip';
 import CardBodyDetails from './CardBodyDetails';
 import CardFooterComments from './CardFooterComments';
+import { urlFormatter } from '../utils/common';
 
 export const CardDeck = (props) => <div {...props} className="CardDeck" />;
 
 export const CustomCard = (props) => {
   const { user } = useAuth0();
   const [showModal, setShowModal] = useState(false);
-  const { program } = props;
+  const { program, marketplace } = props;
   const handleClose = () => setShowModal(false);
 
   return (
     <Fragment>
-      <Card className="Card">
+      <Card className={marketplace ? 'Card Marketplace-card' : 'Card'}>
         <Card.Header>
           <Container fluid>
             <Row className="CardHeader__title">
@@ -48,7 +49,7 @@ export const CustomCard = (props) => {
             <Row className="CardHeader__url">
               <Col xs={10} className="Card--alignLeft">
                 <a
-                  href={`http://${program.programDetail.url}`}
+                  href={urlFormatter(program.programDetail.url)}
                   target="_blank"
                   rel="noopener noreferrer"
                 >
