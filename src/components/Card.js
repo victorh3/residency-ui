@@ -18,12 +18,12 @@ export const CardDeck = (props) => <div {...props} className="CardDeck" />;
 export const CustomCard = (props) => {
   const { user } = useAuth0();
   const [showModal, setShowModal] = useState(false);
-  const { program } = props;
+  const { program, marketplace } = props;
   const handleClose = () => setShowModal(false);
 
   return (
     <Fragment>
-      <Card className="Card">
+      <Card className={marketplace ? 'Card Marketplace-card' : 'Card'}>
         <Card.Header>
           <Container fluid>
             <Row className="CardHeader__title">
