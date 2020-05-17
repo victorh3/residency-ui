@@ -11,6 +11,7 @@ import { Link } from 'react-router-dom';
 import Tooltip from './Tooltip';
 import CardBodyDetails from './CardBodyDetails';
 import CardFooterComments from './CardFooterComments';
+import { urlFormatter } from '../utils/common';
 
 export const CardDeck = (props) => <div {...props} className="CardDeck" />;
 
@@ -48,7 +49,7 @@ export const CustomCard = (props) => {
             <Row className="CardHeader__url">
               <Col xs={10} className="Card--alignLeft">
                 <a
-                  href={`http://${program.programDetail.url}`}
+                  href={urlFormatter(program.programDetail.url)}
                   target="_blank"
                   rel="noopener noreferrer"
                 >
