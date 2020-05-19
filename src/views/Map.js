@@ -16,13 +16,15 @@ const MapView = () => {
   const [isLoading, setIsLoading] = React.useState(true);
 
   useEffect(() => {
-    const latLngs = programs.map((program) => {
-      return L.latLng(program.address.latitude, program.address.longitude);
-    });
+    if (programs.length) {
+      const latLngs = programs.map((program) => {
+        return L.latLng(program.address.latitude, program.address.longitude);
+      });
 
-    const bnds = L.latLngBounds(latLngs);
-    setBounds(bnds);
-    setIsLoading(false);
+      const bnds = L.latLngBounds(latLngs);
+      setBounds(bnds);
+      setIsLoading(false);
+    }
   }, [programs]);
 
   return (
