@@ -7,6 +7,7 @@ import axios from 'axios';
 import { toTitleCase } from './../utils/common';
 import { formSelect } from './../components/formSelect';
 import { useAuth0 } from '../contexts/auth0-context';
+import { useHistory } from 'react-router-dom';
 
 const useResidencyApiGet = (endpoint, filters = {}) => {
   const [data, setData] = useState([]);
@@ -48,6 +49,7 @@ const AddProgram = () => {
   const [apiMessage, setApiMessage] = useState('');
   const { getTokenSilently } = useAuth0();
   const { register, handleSubmit, watch } = useForm();
+  const history = useHistory();
   const letterOfRec = watch(`${detailsFieldName}.letterOfRec`);
   const complexLevelOneAccepted = watch(
     `${detailsFieldName}.comlexLevelOneAccepted`
@@ -90,35 +92,63 @@ const AddProgram = () => {
   const categories = useResidencyApiGet('categories');
 
   //const onSubmit = (data) => {
-  const onSubmit = async (data) => {
-    //try {
-    const token = await getTokenSilently({
-      scope: 'read:status, write:program',
-      audience: 'https://github.com/tguar/ResidencyAPI',
-    });
+  // const onSubmit = async (data) => {
+  //   //try {
+  //   const token = await getTokenSilently({
+  //     scope: 'read:status, write:program',
+  //     audience: 'https://github.com/tguar/ResidencyAPI',
+  //   });
 
-    console.log(token);
-    console.log(JSON.stringify(data));
-    //   const response = axios.post(
-    //     'https://residency.azurewebsites.net/programs/',
-    //     {
-    //       headers: {
-    //         Authorization: `Bearer ${token}`,
-    //       },
-    //       'Content-Type': 'application/json',
-    //       data: data,
-    //     }
-    //   );
-    //   // const responseData = { result: 'womp' };
-    //   const responseData = await response;
-    //   // console.log(responseData.text());
-    //   //setShowResult(true);
-    //   console.log(responseData.statusText);
-    //   //let a = responseData.statusText;
-    //   //setApiMessage(a);
-    // } catch (error) {
-    //   console.error(error);
-    // }
+  //   console.log(token);
+  //   console.log(JSON.stringify(data));
+  //     const response = axios.post(
+  //       'https://residency.azurewebsites.net/programs/',
+  //       {
+  //         headers: {
+  //           Authorization: `Bearer ${token}`,
+  //         },
+  //         'Content-Type': 'application/json',
+  //         data: data,
+  //       }
+  //     );
+  //     // const responseData = { result: 'womp' };
+  //     const responseData = await response;
+  //     // console.log(responseData.text());
+  //     //setShowResult(true);
+  //     console.log(responseData.statusText);
+  //     //let a = responseData.statusText;
+  //     //setApiMessage(a);
+  //   } catch (error) {
+  //     console.error(error);
+  //   }
+  // };
+  const onSubmit = async (data) => {
+    try {
+      const token = await getTokenSilently({
+        scope: 'read:status, write:program',
+        audience: 'https://github.com/tguar/ResidencyAPI',
+      });
+
+      console.log(token);
+      console.log(JSON.stringify(data));
+
+      axios
+        .post(`https://residency.azurewebsites.net/programs/`, data, {
+          headers: {
+            Authorization: `Bearer ${token}`,
+            crossDomain: true,
+            withCredentials: true,
+            'Content-Type': 'application/json',
+          },
+        })
+        .then(history.push('/marketplace'))
+        .catch((e) => console.log(e));
+      // const responseData = { result: 'womp' };
+      // const responseData = await response;
+      // console.log(responseData.text());
+    } catch (error) {
+      console.error(error);
+    }
   };
 
   return (
