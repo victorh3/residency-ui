@@ -74,14 +74,15 @@ const renderTooltipContent = (letter, data = null) => {
 
 const MyTooltip = (props) => {
   const placement = 'left';
-  const { letter, data } = props;
+  const { letter, data, emoji } = props;
   return (
     <OverlayTrigger
       placement={placement}
-      overlay={<Tooltip>{renderTooltipContent(letter, data)}</Tooltip>}
+      overlay={<Tooltip>{renderTooltipContent(letter, data, emoji)}</Tooltip>}
     >
-      <Button variant="secondary" className="Tooltip--button">
-        {letter.toUpperCase()}
+      <Button variant="outline-dark" className="Tooltip--button">
+        {/* {letter.toUpperCase()} */}
+        {emoji}
       </Button>
     </OverlayTrigger>
   );

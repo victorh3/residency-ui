@@ -33,7 +33,7 @@ export const CustomCard = (props) => {
                 </Card.Title>
               </Col>
               <Col xs={2} className="Card--alignRight">
-                <Tooltip letter="k" />
+                <Tooltip letter="k" emoji="🔑" />
               </Col>
             </Row>
             <Row className="CardHeader__date">
@@ -43,7 +43,7 @@ export const CustomCard = (props) => {
                 ).toDateString()}`}
               </Col>
               <Col xs={2} className="Card--alignRight">
-                <Tooltip letter="c" data={program.contacts} />
+                <Tooltip letter="c" emoji="📞" data={program.contacts} />
               </Col>
             </Row>
             <Row className="CardHeader__url">
@@ -58,7 +58,7 @@ export const CustomCard = (props) => {
                 </a>
               </Col>
               <Col xs={2} className="Card--alignRight">
-                <Tooltip letter="a" data={program.address} />
+                <Tooltip letter="a" emoji="🏥" data={program.address} />
               </Col>
             </Row>
           </Container>
