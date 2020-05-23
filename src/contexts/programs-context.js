@@ -11,7 +11,7 @@ export const ProgramsProvider = (props) => {
   const { children } = props;
   const [programs, setPrograms] = useState([]);
   const [filters, setFilters] = useState({
-    states: ['AZ'],
+    states: [],
     type: ['14'],
     year: [2021],
   });
