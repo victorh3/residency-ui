@@ -38,9 +38,12 @@ export const CustomCard = (props) => {
             </Row>
             <Row className="CardHeader__date">
               <Col xs={10}>
-                {`Appy by: ${new Date(
-                  program.programDetail.erasApplicationDate
-                ).toDateString()}`}
+                {new Date(program.programDetail.erasApplicationDate) <
+                new Date('2000', '01', '01')
+                  ? 'Application deadline unavailable'
+                  : `Appy by: ${new Date(
+                      program.programDetail.erasApplicationDate
+                    ).toDateString()}`}
               </Col>
               <Col xs={2} className="Card--alignRight">
                 <Tooltip letter="c" emoji="📞" data={program.contacts} />
