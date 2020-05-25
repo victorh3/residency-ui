@@ -202,7 +202,11 @@ const EditProgram = (props) => {
             </Form.Group>
             <Form.Group as={Col} controlId="formZip">
               <Form.Label>Zip</Form.Label>
-              <Form.Control name="address.zipCode" ref={register} />
+              <Form.Control
+                name="address.zipCode"
+                type="string"
+                ref={register}
+              />
             </Form.Group>
           </Form.Row>
           <Form.Row>

@@ -240,7 +240,7 @@ const AddProgram = () => {
           </Form.Group>
           <Form.Group as={Col} controlId="formZip">
             <Form.Label>Zip</Form.Label>
-            <Form.Control name="address.zipCode" ref={register} />
+            <Form.Control type="string" name="address.zipCode" ref={register} />
           </Form.Group>
         </Form.Row>
         <Form.Row>
