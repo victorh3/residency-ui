@@ -22,11 +22,6 @@ function App() {
       <Header />
       <div className="App">
         <Switch>
-          <Route exact path="/marketplace">
-            <Main>
-              <Marketplace />
-            </Main>
-          </Route>
           <Route exact path="/map">
             <Main>
               <Map />
@@ -50,7 +45,9 @@ function App() {
           />
           <PrivateRoute exact path="/external-api" component={ExternalApi} />
           <Route exact path="/">
-            <Home />
+            <Main>
+              <Marketplace />
+            </Main>
           </Route>
         </Switch>
       </div>

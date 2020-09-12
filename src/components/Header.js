@@ -10,13 +10,11 @@ const Header = () => {
 
   return (
     <Navbar bg="dark" variant="dark" fixed="top">
-      <Navbar.Brand as={Link} to="/">
-        Residency UI
-      </Navbar.Brand>
+      <Navbar.Brand>Residency UI</Navbar.Brand>
       <Nav className="mr-auto">
         <Nav.Item>
-          <Nav.Link as={Link} to="/marketplace">
-            Marketplace
+          <Nav.Link as={Link} to="/">
+            Cards
           </Nav.Link>
         </Nav.Item>
         <Nav.Item>

@@ -1,5 +1,5 @@
-import React from 'react';
-import OverlayTrigger from 'react-bootstrap/OverlayTrigger';
+import React, { useState, useRef } from 'react';
+import Overlay from 'react-bootstrap/Overlay';
 import Tooltip from 'react-bootstrap/Tooltip';
 import Button from 'react-bootstrap/Button';
 
@@ -53,9 +53,9 @@ const Contact = (props) => {
       <br />
       {position}
       <br />
-      {email}
+      <a href={`mailto:${email}`}>{email}</a>
       <br />
-      {phone}
+      <a href={`tel:${phone}`}>{phone}</a>
     </div>
   );
 };
@@ -73,18 +73,28 @@ const renderTooltipContent = (letter, data = null) => {
 };
 
 const MyTooltip = (props) => {
+  const [show, setShow] = useState(false);
+  const tooltipRef = useRef(null);
   const placement = 'left';
   const { letter, data, emoji } = props;
   return (
-    <OverlayTrigger
-      placement={placement}
-      overlay={<Tooltip>{renderTooltipContent(letter, data, emoji)}</Tooltip>}
-    >
-      <Button variant="outline-dark" className="Tooltip--button">
-        {/* {letter.toUpperCase()} */}
+    <>
+      <Button
+        ref={tooltipRef}
+        variant="outline-dark"
+        className="Tooltip--button"
+        onClick={() => setShow(!show)}
+      >
         {emoji}
       </Button>
-    </OverlayTrigger>
+      <Overlay target={tooltipRef.current} show={show} placement={placement}>
+        {(props) => (
+          <Tooltip {...props}>
+            {renderTooltipContent(letter, data, emoji)}
+          </Tooltip>
+        )}
+      </Overlay>
+    </>
   );
 };
 
