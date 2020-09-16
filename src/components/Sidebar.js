@@ -5,7 +5,13 @@ import { toTitleCase } from './../utils/common';
 import { usePrograms } from '../contexts';
 
 const Sidebar = () => {
-  const { filters, setFilters, categories } = usePrograms();
+  const {
+    filters,
+    setFilters,
+    categories,
+    filterSearch,
+    setFilterSearch,
+  } = usePrograms();
   const { type, states } = filters;
   const [lastFilters, setLastFilters] = useState(['AZ']);
 
@@ -38,6 +44,15 @@ const Sidebar = () => {
     <div className="Sidebar">
       <div className="Sidebar__Menu">
         <Form>
+          <Form.Group controlId="program-search">
+            <Form.Label>Program Search</Form.Label>
+            <Form.Control
+              type="text"
+              placeholder="Search by name or ID"
+              value={filterSearch}
+              onChange={(e) => setFilterSearch(e.target.value)}
+            />
+          </Form.Group>
           <Form.Group
             controlId="program-categories"
             className="Sidebar__Categories"

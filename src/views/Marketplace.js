@@ -3,18 +3,28 @@ import { Card, CardDeck } from '../components';
 import { usePrograms } from '../contexts';
 
 const Marketplace = () => {
-  const { programs } = usePrograms();
-
+  const { programs, filterSearch } = usePrograms();
   return (
     <CardDeck>
       {programs.length ? (
-        programs.map((program, index) => (
-          <Card
-            key={`${index}-${program.programId}`}
-            program={program}
-            marketplace={true}
-          />
-        ))
+        programs
+          .filter((program) =>
+            filterSearch.trim().length
+              ? program.programName
+                  .toLowerCase()
+                  .includes(filterSearch.trim().toLowerCase()) ||
+                program.programId
+                  .toLowerCase()
+                  .includes(filterSearch.trim().toLowerCase())
+              : true
+          )
+          .map((program, index) => (
+            <Card
+              key={`${index}-${program.programId}`}
+              program={program}
+              marketplace={true}
+            />
+          ))
       ) : (
         <p>
           Sorry{' '}
