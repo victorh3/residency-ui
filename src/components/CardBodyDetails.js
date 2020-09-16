@@ -42,18 +42,18 @@ const CardBodyDetails = (props) => {
 
   return (
     <div className="Card__Body">
-      {programDetailKeys.map((detail) =>
+      {programDetailKeys.map((detail, index) =>
         detail.toLowerCase().includes('comments') ||
         detail.toLowerCase().includes('details') ||
         detail.toLowerCase().includes('score') ? (
-          <div className="Card__BodyDetail">
+          <div className="Card__BodyDetail" key={`0.${index}`}>
             <div className="Break">
               <div className="Card--bold">{_.startCase(detail)}</div>
               <div>{renderData(detail, programDetail[detail])}</div>
             </div>
           </div>
         ) : (
-          <div className="Card__BodyDetail">
+          <div className="Card__BodyDetail" key={`0.${index}`}>
             <span className="Card--bold">{_.startCase(detail)}</span>
             <span>{renderData(detail, programDetail[detail])}</span>
           </div>
