@@ -1,5 +1,6 @@
 import React from 'react';
 import _ from 'lodash';
+import { programDetailMap } from '../utils/Constants';
 
 const CardBodyDetails = (props) => {
   const { programDetail } = props;
@@ -48,13 +49,13 @@ const CardBodyDetails = (props) => {
         detail.toLowerCase().includes('score') ? (
           <div className="Card__BodyDetail" key={`0.${index}`}>
             <div className="Break">
-              <div className="Card--bold">{_.startCase(detail)}</div>
+              <div className="Card--bold">{programDetailMap.get(detail)}</div>
               <div>{renderData(detail, programDetail[detail])}</div>
             </div>
           </div>
         ) : (
           <div className="Card__BodyDetail" key={`0.${index}`}>
-            <span className="Card--bold">{_.startCase(detail)}</span>
+            <span className="Card--bold">{programDetailMap.get(detail)}</span>
             <span>{renderData(detail, programDetail[detail])}</span>
           </div>
         )
