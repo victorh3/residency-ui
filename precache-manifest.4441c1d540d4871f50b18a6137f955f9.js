@@ -1,6 +1,6 @@
 self.__precacheManifest = (self.__precacheManifest || []).concat([
   {
-    "revision": "7b823b9cf90e50e15fd75767634b6fb9",
+    "revision": "48aad4976c1597957df089daec1e7f8b",
     "url": "/residency-ui/index.html"
   },
   {
@@ -8,7 +8,7 @@ self.__precacheManifest = (self.__precacheManifest || []).concat([
     "url": "/residency-ui/static/css/2.de424728.chunk.css"
   },
   {
-    "revision": "c8adda4929a7b66cd633",
+    "revision": "0ce5dafa1900675ddd90",
     "url": "/residency-ui/static/css/main.dd7958e9.chunk.css"
   },
   {
@@ -20,8 +20,8 @@ self.__precacheManifest = (self.__precacheManifest || []).concat([
     "url": "/residency-ui/static/js/2.17f2a7bf.chunk.js.LICENSE.txt"
   },
   {
-    "revision": "c8adda4929a7b66cd633",
-    "url": "/residency-ui/static/js/main.344e56df.chunk.js"
+    "revision": "0ce5dafa1900675ddd90",
+    "url": "/residency-ui/static/js/main.3f8694ea.chunk.js"
   },
   {
     "revision": "611b9f2c9fd219bf07b5",
