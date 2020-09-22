@@ -35,7 +35,7 @@ export const programDetailMap = new Map([
   ['transcriptComments', 'Transcript Comments:'],
   ['personalStatement', 'Personal Statement?'],
   ['personalStatementComments', 'P.S. Comments:'],
-  ['research', 'Rsearch?'],
+  ['research', 'Research?'],
   ['researchComments', 'Research Comments:'],
   ['auditionRotation', 'Audition Rotation?'],
   ['auditionRotationComments', 'A.R. Comments:'],
