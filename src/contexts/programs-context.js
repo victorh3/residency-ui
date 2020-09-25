@@ -14,10 +14,14 @@ export const ProgramsProvider = (props) => {
     states: [],
     type: ['14'],
     year: [2021],
+    doFriendly: [1, 2, 3],
+    imsFriendly: [1, 2, 3],
+    comlexFriendly: [1, 2, 3],
   });
   const [categories, setCategories] = useState([]);
   const [isLoading, setIsLoading] = useState(false);
   const [filterSearch, setFilterSearch] = useState('');
+  // const [filterAttributes, setFilterAttributes] = useState([]);
 
   const callToAPI = (query, setFunction) => {
     let current = true;
