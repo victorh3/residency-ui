@@ -53,3 +53,21 @@ export const programDetailMap = new Map([
   ['otherCommentsFour', 'Comment #4:'],
   ['otherCommentsFive', 'Comment #5:'],
 ]);
+
+export const threeOptions = [
+  {
+    key: 1,
+    value: 'Yes',
+    expandedValue: 'Yes',
+  },
+  {
+    key: 2,
+    value: 'No',
+    expandedValue: 'No',
+  },
+  {
+    key: 3,
+    value: 'N/Av',
+    expandedValue: 'Not Available',
+  },
+];
