@@ -1,6 +1,6 @@
 {
   "files": {
-    "main.css": "/residency-ui/static/css/main.3b40b29a.chunk.css",
+    "main.css": "/residency-ui/static/css/main.23034aad.chunk.css",
     "main.js": "/residency-ui/static/js/main.9074fe99.chunk.js",
     "main.js.map": "/residency-ui/static/js/main.9074fe99.chunk.js.map",
     "runtime-main.js": "/residency-ui/static/js/runtime-main.4a7e88fb.js",
@@ -9,17 +9,17 @@
     "static/js/2.a220cbab.chunk.js": "/residency-ui/static/js/2.a220cbab.chunk.js",
     "static/js/2.a220cbab.chunk.js.map": "/residency-ui/static/js/2.a220cbab.chunk.js.map",
     "index.html": "/residency-ui/index.html",
-    "precache-manifest.78147990e1d67dcb397c8192fb2b0d6d.js": "/residency-ui/precache-manifest.78147990e1d67dcb397c8192fb2b0d6d.js",
+    "precache-manifest.f007d932d61e87c25d3e11f50693f669.js": "/residency-ui/precache-manifest.f007d932d61e87c25d3e11f50693f669.js",
     "service-worker.js": "/residency-ui/service-worker.js",
     "static/css/2.de424728.chunk.css.map": "/residency-ui/static/css/2.de424728.chunk.css.map",
-    "static/css/main.3b40b29a.chunk.css.map": "/residency-ui/static/css/main.3b40b29a.chunk.css.map",
+    "static/css/main.23034aad.chunk.css.map": "/residency-ui/static/css/main.23034aad.chunk.css.map",
     "static/js/2.a220cbab.chunk.js.LICENSE.txt": "/residency-ui/static/js/2.a220cbab.chunk.js.LICENSE.txt"
   },
   "entrypoints": [
     "static/js/runtime-main.4a7e88fb.js",
     "static/css/2.de424728.chunk.css",
     "static/js/2.a220cbab.chunk.js",
-    "static/css/main.3b40b29a.chunk.css",
+    "static/css/main.23034aad.chunk.css",
     "static/js/main.9074fe99.chunk.js"
   ]
 }
