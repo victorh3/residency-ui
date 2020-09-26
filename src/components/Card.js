@@ -28,40 +28,32 @@ export const CustomCard = (props) => {
           <Container fluid>
             <Row className="CardHeader__title">
               <Col xs={10}>
-                <Card.Title className="CardHeader__titleText">
-                  {program.programName}
-                </Card.Title>
+                <div className="CardHeader__Info">
+                  <Card.Title className="CardHeader__titleText">
+                    {program.programName}
+                  </Card.Title>
+                  {new Date(program.programDetail.erasApplicationDate) <
+                  new Date('2000', '01', '01')
+                    ? 'Application deadline unavailable'
+                    : `Appy by: ${new Date(
+                        program.programDetail.erasApplicationDate
+                      ).toDateString()}`}
+                  <a
+                    href={urlFormatter(program.programDetail.url)}
+                    target="_blank"
+                    rel="noopener noreferrer"
+                  >
+                    {' '}
+                    Website
+                  </a>
+                </div>
               </Col>
               <Col xs={2} className="Card--alignRight">
-                <Tooltip letter="k" emoji="🔑" />
-              </Col>
-            </Row>
-            <Row className="CardHeader__date">
-              <Col xs={10}>
-                {new Date(program.programDetail.erasApplicationDate) <
-                new Date('2000', '01', '01')
-                  ? 'Application deadline unavailable'
-                  : `Appy by: ${new Date(
-                      program.programDetail.erasApplicationDate
-                    ).toDateString()}`}
-              </Col>
-              <Col xs={2} className="Card--alignRight">
-                <Tooltip letter="c" emoji="📞" data={program.contacts} />
-              </Col>
-            </Row>
-            <Row className="CardHeader__url">
-              <Col xs={10} className="Card--alignLeft">
-                <a
-                  href={urlFormatter(program.programDetail.url)}
-                  target="_blank"
-                  rel="noopener noreferrer"
-                >
-                  {' '}
-                  Website
-                </a>
-              </Col>
-              <Col xs={2} className="Card--alignRight">
-                <Tooltip letter="a" emoji="🏥" data={program.address} />
+                <div className="CardHeader__Info">
+                  <Tooltip letter="k" emoji="🔑" />
+                  <Tooltip letter="c" emoji="📞" data={program.contacts} />
+                  <Tooltip letter="a" emoji="🏥" data={program.address} />
+                </div>
               </Col>
             </Row>
           </Container>
