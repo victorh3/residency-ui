@@ -53,3 +53,5 @@ export const programDetailMap = new Map([
   ['otherCommentsFour', 'Comment #4:'],
   ['otherCommentsFive', 'Comment #5:'],
 ]);
+
+export const API_ENDPOINT_URL = 'https://residency.azurewebsites.net';

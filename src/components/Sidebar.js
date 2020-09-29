@@ -1,8 +1,11 @@
-import React, { useState } from 'react';
+/* eslint-disable react-hooks/exhaustive-deps */
+import React, { useState, useEffect } from 'react';
+import axios from 'axios';
 import { Form } from 'react-bootstrap';
 import { states as statesList } from './states';
 import { toTitleCase } from './../utils/common';
 import { usePrograms } from '../contexts';
+import { API_ENDPOINT_URL } from '../utils/Constants';
 
 const Sidebar = () => {
   const {
@@ -11,9 +14,52 @@ const Sidebar = () => {
     categories,
     filterSearch,
     setFilterSearch,
+    setIsLoading,
+    setPrograms,
+    setCategories,
   } = usePrograms();
   const { type, states } = filters;
   const [lastFilters, setLastFilters] = useState(['AZ']);
+
+  const callToAPI = (query, setFunction) => {
+    let current = true;
+    if (current) {
+      axios({
+        method: 'get',
+        baseURL: API_ENDPOINT_URL,
+        url: query,
+      })
+        .then((response) => {
+          setFunction([...response.data]);
+          setIsLoading(false);
+        })
+        .catch((error) => {
+          console.log(error);
+          setIsLoading(false);
+        });
+      return () => (current = false);
+    }
+  };
+
+  useEffect(() => {
+    setIsLoading(true);
+    callToAPI('/categories', setCategories, setIsLoading);
+  }, []);
+
+  useEffect(() => {
+    setIsLoading(true);
+    let query = '/programs?';
+    const filterKeys = Object.keys(filters);
+    const queryBuilder = [];
+
+    for (const key of filterKeys) {
+      const values = filters[key].map((i) => `${key}=${i}`);
+      queryBuilder.push(values.join('&'));
+    }
+
+    query += queryBuilder.join('&');
+    callToAPI(query, setPrograms, setIsLoading);
+  }, [filters]);
 
   const handleOnChange = (e) => {
     const { name, value } = e.target;
