@@ -3,6 +3,7 @@ import { Form } from 'react-bootstrap';
 import { states as statesList } from './states';
 import { toTitleCase } from './../utils/common';
 import { usePrograms } from '../contexts';
+import { threeOptions } from '../utils/Constants';
 
 const Sidebar = () => {
   const {
@@ -12,7 +13,7 @@ const Sidebar = () => {
     filterSearch,
     setFilterSearch,
   } = usePrograms();
-  const { type, states } = filters;
+  const { type, states, doFriendly, imsFriendly, comlexFriendly } = filters;
   const [lastFilters, setLastFilters] = useState(['AZ']);
 
   const handleOnChange = (e) => {
@@ -25,6 +26,30 @@ const Sidebar = () => {
         checkedStates.delete(value);
       }
       setFilters({ ...filters, [name]: [...checkedStates] });
+    } else if (name === 'doFriendly') {
+      const checkedAttributes = new Set([...doFriendly]);
+      if (e.target.checked) {
+        checkedAttributes.add(Number(value));
+      } else {
+        checkedAttributes.delete(Number(value));
+      }
+      setFilters({ ...filters, [name]: [...checkedAttributes] });
+    } else if (name === 'imgFriendly') {
+      const checkedAttributes = new Set([...imsFriendly]);
+      if (e.target.checked) {
+        checkedAttributes.add(Number(value));
+      } else {
+        checkedAttributes.delete(Number(value));
+      }
+      setFilters({ ...filters, imsFriendly: [...checkedAttributes] });
+    } else if (name === 'comlexFriendly') {
+      const checkedAttributes = new Set([...comlexFriendly]);
+      if (e.target.checked) {
+        checkedAttributes.add(Number(value));
+      } else {
+        checkedAttributes.delete(Number(value));
+      }
+      setFilters({ ...filters, [name]: [...checkedAttributes] });
     } else {
       setFilters({ ...filters, [name]: [value] });
     }
@@ -75,6 +100,57 @@ const Sidebar = () => {
                 </option>
               ))}
             </Form.Control>
+          </Form.Group>
+          <Form.Group controlId="attributes-do-friendly">
+            <Form.Label>D.O. Friendly?</Form.Label>
+            <br></br>
+            {threeOptions.map((option) => (
+              <Form.Check
+                name="doFriendly"
+                key={`do-friendly-${option.key}`}
+                inline
+                checked={doFriendly.indexOf(option.key) > -1}
+                label={option.value}
+                type="checkbox"
+                value={option.key}
+                id={`doFriendly-${option.key}`}
+                onChange={handleOnChange}
+              />
+            ))}
+          </Form.Group>
+          <Form.Group controlId="attributes-img-friendly">
+            <Form.Label>I.M.G Friendly?</Form.Label>
+            <br></br>
+            {threeOptions.map((option) => (
+              <Form.Check
+                name="imgFriendly"
+                key={`img-friendly-${option.key}`}
+                inline
+                checked={imsFriendly.indexOf(option.key) > -1}
+                label={option.value}
+                type="checkbox"
+                value={option.key}
+                id={`imgFriendly-${option.key}`}
+                onChange={handleOnChange}
+              />
+            ))}
+          </Form.Group>
+          <Form.Group controlId="attributes-comlex-friendly">
+            <Form.Label>COMLEX Accepted?</Form.Label>
+            <br></br>
+            {threeOptions.map((option) => (
+              <Form.Check
+                name="comlexFriendly"
+                key={`comlex-friendly-${option.key}`}
+                inline
+                checked={comlexFriendly.indexOf(option.key) > -1}
+                label={option.value}
+                type="checkbox"
+                value={option.key}
+                id={`comlexFriendly-${option.key}`}
+                onChange={handleOnChange}
+              />
+            ))}
           </Form.Group>
           <Form.Group controlId="program-states">
             <Form.Label>States</Form.Label>

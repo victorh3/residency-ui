@@ -5,9 +5,10 @@ import Modal from 'react-bootstrap/Modal';
 import Button from 'react-bootstrap/Button';
 import { Card } from '../components';
 import L from 'leaflet';
+import { threeOptions } from '../utils/Constants';
 
 const MapView = () => {
-  const { programs } = usePrograms();
+  const { programs, filterSearch, filters } = usePrograms();
   const [selectedProgram, setSelectedProgram] = React.useState(null);
   const [showModal, setShowModal] = useState(false);
   const handleClose = () => setShowModal(false);
@@ -37,15 +38,60 @@ const MapView = () => {
             url="https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png"
             attribution='&copy; <a href="http://osm.org/copyright">OpenStreetMap</a> contributors'
           />
-          {programs.map((program) => (
-            <Marker
-              key={program.programId}
-              position={[program.address.latitude, program.address.longitude]}
-              onClick={() => {
-                setSelectedProgram(program);
-              }}
-            />
-          ))}
+          {programs
+            .filter((program) =>
+              filterSearch.trim().length
+                ? program.programName
+                    .toLowerCase()
+                    .includes(filterSearch.trim().toLowerCase()) ||
+                  program.programId
+                    .toLowerCase()
+                    .includes(filterSearch.trim().toLowerCase())
+                : true
+            )
+            .filter(
+              (program) =>
+                filters.doFriendly.indexOf(
+                  Object.values(
+                    threeOptions.find(
+                      (x) =>
+                        x.expandedValue === program.programDetail.doFriendly
+                    )
+                  )[0]
+                ) > -1
+            )
+            .filter(
+              (program) =>
+                filters.imsFriendly.indexOf(
+                  Object.values(
+                    threeOptions.find(
+                      (x) =>
+                        x.expandedValue === program.programDetail.imsFriendly
+                    )
+                  )[0]
+                ) > -1
+            )
+            .filter(
+              (program) =>
+                filters.comlexFriendly.indexOf(
+                  Object.values(
+                    threeOptions.find(
+                      (x) =>
+                        x.expandedValue ===
+                        program.programDetail.comlexLevelOneAccepted
+                    )
+                  )[0]
+                ) > -1
+            )
+            .map((program) => (
+              <Marker
+                key={program.programId}
+                position={[program.address.latitude, program.address.longitude]}
+                onClick={() => {
+                  setSelectedProgram(program);
+                }}
+              />
+            ))}
           {selectedProgram && (
             <Popup
               position={[

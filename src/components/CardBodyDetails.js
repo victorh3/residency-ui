@@ -1,5 +1,4 @@
 import React from 'react';
-import _ from 'lodash';
 import { programDetailMap } from '../utils/Constants';
 
 const CardBodyDetails = (props) => {
