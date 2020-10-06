@@ -21,7 +21,6 @@ export const ProgramsProvider = (props) => {
   const [categories, setCategories] = useState([]);
   const [isLoading, setIsLoading] = useState(false);
   const [filterSearch, setFilterSearch] = useState('');
-  // const [filterAttributes, setFilterAttributes] = useState([]);
 
   const callToAPI = (query, setFunction) => {
     let current = true;
