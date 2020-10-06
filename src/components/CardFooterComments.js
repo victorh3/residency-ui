@@ -1,5 +1,5 @@
 import React from 'react';
-import _ from 'lodash';
+import { programDetailMap } from '../utils/Constants';
 
 const CardFooterComments = (props) => {
   const { programDetail } = props;
@@ -11,10 +11,10 @@ const CardFooterComments = (props) => {
 
   return (
     <div className="Card__Footer">
-      {programDetailKeys.map((detail) => (
-        <div>
+      {programDetailKeys.map((detail, index) => (
+        <div key={`0.${index}`}>
           <span className="Card--bold CardFooter__comments">
-            {_.startCase(detail)}
+            {programDetailMap.get(detail)}
           </span>
           <span>{programDetail[detail]}</span>
         </div>

@@ -17,6 +17,7 @@ export const ProgramsProvider = (props) => {
   });
   const [categories, setCategories] = useState([]);
   const [isLoading, setIsLoading] = useState(false);
+  const [filterSearch, setFilterSearch] = useState('');
 
   const callToAPI = (query, setFunction) => {
     let current = true;
@@ -70,6 +71,8 @@ export const ProgramsProvider = (props) => {
         setCategories,
         isLoading,
         setIsLoading,
+        filterSearch,
+        setFilterSearch,
       }}
     >
       {children}
